@@ -76,4 +76,4 @@ Exercises for Programmers: 57 Challenges to Develop Your Coding Skills by Brian 
 - Exercise 54. URL Shortener
 - Exercise 55. Text Sharing
 - Exercise 56. Tracking Inventory
-- Exercise 57. Trivia App****
+- Exercise 57. Trivia App

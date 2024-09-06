@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 final class GreetPrinter {
 
-  private static final String GREETING_TEMPLATE = "Hello, %s, nice to meet you!\n";
-
   private final InputStream inputStream;
   private final PrintStream printStream;
 
@@ -22,7 +20,7 @@ final class GreetPrinter {
   void sayHello() {
     askForName();
     String name = readName();
-    this.printStream.printf(GREETING_TEMPLATE, name);
+    this.printStream.printf("Hello, %s, nice to meet you!%n", name);
   }
 
   private void askForName() {

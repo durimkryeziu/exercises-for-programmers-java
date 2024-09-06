@@ -5,30 +5,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class GreetPrinterTests {
 
-  @Test
-  void sayHello_GivenNameIsProvided_ShouldGreetProperly() {
+  @ParameterizedTest(name = "Given name: {0}")
+  @ValueSource(strings = {"Durim", "John Doe"})
+  void sayHello_GivenNameIsProvided_ShouldGreetProperly(String name) {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    GreetPrinter greetPrinter = new GreetPrinter(new ByteArrayInputStream("Durim".getBytes()), new PrintStream(outputStream));
+    GreetPrinter greetPrinter = new GreetPrinter(new ByteArrayInputStream(name.getBytes()), new PrintStream(outputStream));
 
     greetPrinter.sayHello();
 
     assertThat(outputStream)
-        .hasToString("Hello, Durim, nice to meet you!\n");
-  }
-
-  @Test
-  void sayHello_GivenNameHasSpaces_ShouldGreetProperly() {
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    GreetPrinter greetPrinter = new GreetPrinter(new ByteArrayInputStream("John Doe".getBytes()), new PrintStream(outputStream));
-
-    greetPrinter.sayHello();
-
-    assertThat(outputStream)
-        .hasToString("Hello, John Doe, nice to meet you!\n");
+        .hasToString("Hello, %s, nice to meet you!%n", name);
   }
 
 }
