@@ -1,4 +1,4 @@
-package com.craftsmanshipinsoftware.count;
+package com.craftsmanshipinsoftware.charscnt.console;
 
 public class Main {
 
@@ -6,4 +6,5 @@ public class Main {
     CharactersCounter charactersCounter = new CharactersCounter(System.in, System.out);
     charactersCounter.displayCharactersCount();
   }
+
 }

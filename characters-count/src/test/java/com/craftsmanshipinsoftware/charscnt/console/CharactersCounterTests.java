@@ -1,4 +1,4 @@
-package com.craftsmanshipinsoftware.count;
+package com.craftsmanshipinsoftware.charscnt.console;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

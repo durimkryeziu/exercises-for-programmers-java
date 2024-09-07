@@ -1,4 +1,4 @@
-package com.craftsmanshipinsoftware.count;
+package com.craftsmanshipinsoftware.charscnt.console;
 
 import java.io.InputStream;
 import java.io.PrintStream;
