@@ -5,7 +5,7 @@ Exercises for Programmers: 57 Challenges to Develop Your Coding Skills by Brian 
 
 **Input, Processing, and Output**
 - Exercise 1. [Saying Hello](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/saying-hello)
-- Exercise 2. Counting the Number of Characters
+- Exercise 2. [Counting the Number of Characters](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/characters-count)
 - Exercise 3. Printing Quotes
 - Exercise 4. Mad Lib
 - Exercise 5. Simple Math
