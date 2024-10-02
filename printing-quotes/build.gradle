@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(libs.assertj.core)
+    testImplementation(libs.junit.jupiter)
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
