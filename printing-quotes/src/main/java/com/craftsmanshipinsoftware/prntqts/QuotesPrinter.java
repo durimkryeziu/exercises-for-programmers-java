@@ -20,9 +20,9 @@ class QuotesPrinter {
   void displayQuote() {
     try (Scanner scanner = new Scanner(this.inputStream)) {
       askForQuote();
-      String quote = scanner.hasNext() ? scanner.nextLine() : null;
+      String quote = readInput(scanner);
       askForAuthor();
-      String author = scanner.hasNext() ? scanner.nextLine() : null;
+      String author = readInput(scanner);
       if (quote == null || quote.isBlank()) {
         this.printStream.println("Please enter the quote!");
       } else if (author == null || author.isBlank()) {
@@ -39,6 +39,10 @@ class QuotesPrinter {
 
   private void askForAuthor() {
     System.out.print("Who said it? ");
+  }
+
+  private String readInput(Scanner scanner) {
+    return scanner.hasNext() ? scanner.nextLine() : null;
   }
 
 }
