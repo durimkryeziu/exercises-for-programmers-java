@@ -12,7 +12,9 @@ jobs:
     permissions:
       contents: read
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
@@ -21,6 +23,13 @@ jobs:
     
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
-      
-    - name: Build with Gradle Wrapper
+
+    - name: Run PMD Analysis
+      run: ./gradlew pmdMain pmdTest
+      continue-on-error: false # Fail if code quality issues are found
+
+    - name: Run Unit Tests
+      run: ./gradlew test
+
+    - name: Build Project
       run: ./gradlew build
