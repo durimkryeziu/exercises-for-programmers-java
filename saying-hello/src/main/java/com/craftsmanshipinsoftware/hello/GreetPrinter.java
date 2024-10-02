@@ -23,6 +23,7 @@ final class GreetPrinter {
     this.printStream.printf("Hello, %s, nice to meet you!%n", name);
   }
 
+  @SuppressWarnings("PMD.SystemPrintln")
   private void askForName() {
     System.out.print("What is your name? ");
   }

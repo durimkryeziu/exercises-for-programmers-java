@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'pmd'
 }
 
 repositories {
@@ -18,4 +19,12 @@ testing {
             useJUnitJupiter()
         }
     }
+}
+
+pmd {
+    consoleOutput = true
+    toolVersion = "7.6.0"
+    ruleSets = ["category/java/errorprone.xml",
+                "category/java/bestpractices.xml",
+                "category/java/performance.xml"]
 }

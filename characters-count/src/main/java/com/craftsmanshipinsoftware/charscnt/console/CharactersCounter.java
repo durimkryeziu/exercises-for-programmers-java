@@ -27,6 +27,7 @@ public class CharactersCounter {
     this.printStream.printf("%s has %d characters.%n", input, input.length());
   }
 
+  @SuppressWarnings("PMD.SystemPrintln")
   private void askForInput() {
     System.out.print("What is the input string? ");
   }

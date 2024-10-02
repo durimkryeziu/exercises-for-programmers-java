@@ -33,10 +33,12 @@ class QuotesPrinter {
     }
   }
 
+  @SuppressWarnings("PMD.SystemPrintln")
   private void askForQuote() {
     System.out.print("What is the quote? ");
   }
 
+  @SuppressWarnings("PMD.SystemPrintln")
   private void askForAuthor() {
     System.out.print("Who said it? ");
   }
