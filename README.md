@@ -7,7 +7,7 @@ Exercises for Programmers: 57 Challenges to Develop Your Coding Skills by Brian 
 - Exercise 1. [Saying Hello](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/saying-hello)
 - Exercise 2. [Counting the Number of Characters](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/characters-count)
 - Exercise 3. [Printing Quotes](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/printing-quotes)
-- Exercise 4. Mad Lib
+- Exercise 4. [Mad Lib](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/mad-lib)
 - Exercise 5. Simple Math
 - Exercise 6. Retirement Calculator
 
