@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'pmd'
+    id "org.sonarqube"
 }
 
 repositories {
@@ -27,4 +28,12 @@ pmd {
     ruleSets = ["category/java/errorprone.xml",
                 "category/java/bestpractices.xml",
                 "category/java/performance.xml"]
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "durimkryeziu_exercises-for-programmers-java"
+        property "sonar.organization", "durimkryeziu"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
