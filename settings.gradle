@@ -1,2 +1,2 @@
 rootProject.name = 'exercises-for-programmers-java'
-include('saying-hello', 'characters-count', 'printing-quotes', 'mad-lib')
+include('saying-hello', 'characters-count', 'printing-quotes', 'mad-lib', 'simple-math')
