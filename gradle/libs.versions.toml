@@ -3,6 +3,7 @@
 assertj-core = "3.26.3"
 junit-jupiter = "5.11.0"
 javafxplugin = "0.1.0"
+pmd = "7.6.0"
 
 [libraries]
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj-core" }

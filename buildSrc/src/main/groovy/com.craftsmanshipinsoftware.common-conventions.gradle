@@ -23,7 +23,7 @@ testing {
 
 pmd {
     consoleOutput = true
-    toolVersion = "7.6.0"
+    toolVersion = libs.versions.pmd.get()
     ruleSets = ["category/java/errorprone.xml",
                 "category/java/bestpractices.xml",
                 "category/java/performance.xml"]

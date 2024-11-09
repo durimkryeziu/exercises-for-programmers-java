@@ -1,1 +1,9 @@
 rootProject.name = 'common-conventions'
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            from(files("../gradle/libs.versions.toml"))
+        }
+    }
+}
