@@ -20,52 +20,34 @@ class SimpleMath {
   void printOutput() {
     try (Scanner scanner = new Scanner(inputStream)) {
       String firstInput = promptForInput("What is the first number? ", scanner);
-      int firstNumber = validatedInput(firstInput);
+      PositiveInteger firstNumber = PositiveInteger.of(firstInput);
       String secondInput = promptForInput("What is the second number? ", scanner);
-      int secondNumber = validatedInput(secondInput);
-      if (secondNumber == 0) {
-        throw new IllegalArgumentException("Cannot divide by zero!");
-      }
-      this.printStream.println(output(firstNumber, secondNumber));
+      PositiveInteger secondNumber = PositiveInteger.of(secondInput);
+      this.printStream.println(formattedOutput(firstNumber, secondNumber));
     }
   }
 
   @SuppressWarnings("PMD.SystemPrintln")
   private String promptForInput(String prompt, Scanner scanner) {
     System.out.print(prompt);
-    String input = readInput(scanner);
+    String input = scanner.hasNext() ? scanner.nextLine() : null;
     if (input == null || input.isBlank()) {
       throw new IllegalArgumentException("Input must not be empty!");
     }
     return input;
   }
 
-  private String readInput(Scanner scanner) {
-    return scanner.hasNext() ? scanner.nextLine() : null;
-  }
-
-  private static int validatedInput(String input) {
-    try {
-      int number = Integer.parseInt(input);
-      if (number < 0) {
-        throw new IllegalArgumentException("Please enter a positive number! Input: " + number);
-      }
-      return number;
-    } catch (NumberFormatException e) {
-      throw new IllegalArgumentException("Please enter a valid number! Input: " + input, e);
-    }
-  }
-
-  private static String output(int firstNumber, int secondNumber) {
-    return String.format("""
-            %d + %d = %d
-            %d - %d = %d
-            %d * %d = %d
-            %d / %d = %d""",
-        firstNumber, secondNumber, add(firstNumber, secondNumber),
-        firstNumber, secondNumber, subtract(firstNumber, secondNumber),
-        firstNumber, secondNumber, multiply(firstNumber, secondNumber),
-        firstNumber, secondNumber, divide(firstNumber, secondNumber));
+  private static String formattedOutput(PositiveInteger firstNumber, PositiveInteger secondNumber) {
+    return """
+        %s + %s = %d
+        %s - %s = %d
+        %s * %s = %d
+        %s / %s = %d""".formatted(
+        firstNumber, secondNumber, add(firstNumber.intValue(), secondNumber.intValue()),
+        firstNumber, secondNumber, subtract(firstNumber.intValue(), secondNumber.intValue()),
+        firstNumber, secondNumber, multiply(firstNumber.intValue(), secondNumber.intValue()),
+        firstNumber, secondNumber, divide(firstNumber.intValue(), secondNumber.intValue())
+    );
   }
 
   private static int add(int firstNumber, int secondNumber) {
@@ -81,6 +63,9 @@ class SimpleMath {
   }
 
   private static int divide(int firstNumber, int secondNumber) {
+    if (secondNumber == 0) {
+      throw new IllegalArgumentException("Cannot divide by zero!");
+    }
     return firstNumber / secondNumber;
   }
 }
