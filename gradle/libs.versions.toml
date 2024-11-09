@@ -1,15 +1,13 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 [versions]
 assertj-core = "3.26.3"
-javafxplugin = "0.1.0"
 junit-jupiter = "5.11.0"
+javafxplugin = "0.1.0"
 pmd = "7.6.0"
-sonarqube = "5.1.0.4882"
 
 [libraries]
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj-core" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
-sonarqube-gradle-plugin = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonarqube" }
 
 [plugins]
 javafxplugin = { id = "org.openjfx.javafxplugin", version.ref = "javafxplugin" }

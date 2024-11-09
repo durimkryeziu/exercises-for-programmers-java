@@ -5,7 +5,6 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-    types: [opened, synchronize, reopened]
 
 jobs:
   build:
@@ -15,41 +14,22 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
-
-    - name: Setup & Cache Gradle packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-        restore-keys: ${{ runner.os }}-gradle
-
-    - name: Cache SonarCloud packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
-
-    - name: Run Unit Tests
-      run: ./gradlew test
-
-    - name: Build Project
-      run: ./gradlew build -x test
+    
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Run PMD Analysis
       run: ./gradlew pmdMain pmdTest
       continue-on-error: false # Fail if code quality issues are found
 
-    - name: Run Sonar Analysis
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: ./gradlew sonar --info
+    - name: Run Unit Tests
+      run: ./gradlew test
+
+    - name: Build Project
+      run: ./gradlew build
