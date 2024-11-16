@@ -1,8 +1,14 @@
 plugins {
     id 'com.craftsmanshipinsoftware.common-conventions'
+    alias(libs.plugins.spring.boot)
 }
 
 dependencies {
+    implementation enforcedPlatform(libs.spring.boot.dependencies)
+    implementation(libs.spring.boot.starter.web)
+
+    testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.assertj.core)
     testImplementation(libs.junit.jupiter)
+    testImplementation(libs.htmlunit)
 }

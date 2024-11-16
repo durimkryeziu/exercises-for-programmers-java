@@ -1,13 +1,18 @@
-# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 [versions]
 assertj-core = "3.26.3"
-junit-jupiter = "5.11.0"
 javafxplugin = "0.1.0"
+junit-jupiter = "5.11.0"
 pmd = "7.6.0"
+spring-boot = "3.3.5"
 
 [libraries]
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj-core" }
+htmlunit = { module = "net.sourceforge.htmlunit:htmlunit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
 
 [plugins]
 javafxplugin = { id = "org.openjfx.javafxplugin", version.ref = "javafxplugin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

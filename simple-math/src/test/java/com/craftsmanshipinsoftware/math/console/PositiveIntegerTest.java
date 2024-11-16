@@ -1,4 +1,4 @@
-package com.craftsmanshipinsoftware.math;
+package com.craftsmanshipinsoftware.math.console;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 

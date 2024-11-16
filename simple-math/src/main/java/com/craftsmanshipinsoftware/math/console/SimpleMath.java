@@ -1,4 +1,4 @@
-package com.craftsmanshipinsoftware.math;
+package com.craftsmanshipinsoftware.math.console;
 
 import java.io.InputStream;
 import java.io.PrintStream;
