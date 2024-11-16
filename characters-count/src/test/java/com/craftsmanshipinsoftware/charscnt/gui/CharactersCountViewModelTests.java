@@ -9,26 +9,26 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class CharactersCountViewModelTests {
 
-  @NullAndEmptySource
-  @ValueSource(strings = {" "})
-  @ParameterizedTest(name = "Given input: [{0}]")
-  void countInputCharacters_GivenInputIsEmpty_ShouldOutputPleaseEnterSomeInputString(String input) {
-    CharactersCountViewModel viewModel = new CharactersCountViewModel();
-    viewModel.inputProperty().setValue(input);
+    @NullAndEmptySource
+    @ValueSource(strings = {" "})
+    @ParameterizedTest(name = "Given input: [{0}]")
+    void countInputCharacters_GivenInputIsEmpty_ShouldOutputPleaseEnterSomeInputString(String input) {
+        CharactersCountViewModel viewModel = new CharactersCountViewModel();
+        viewModel.inputProperty().setValue(input);
 
-    viewModel.countInputCharacters();
+        viewModel.countInputCharacters();
 
-    assertThat(viewModel.outputProperty().getValue()).isEqualTo("Please enter some input string.");
-  }
+        assertThat(viewModel.outputProperty().getValue()).isEqualTo("Please enter some input string.");
+    }
 
-  @Test
-  void countInputCharacters_GivenInputIsHelloWorld_ShouldOutputCharacterCount() {
-    CharactersCountViewModel viewModel = new CharactersCountViewModel();
-    viewModel.inputProperty().setValue("Hello, World!");
+    @Test
+    void countInputCharacters_GivenInputIsHelloWorld_ShouldOutputCharacterCount() {
+        CharactersCountViewModel viewModel = new CharactersCountViewModel();
+        viewModel.inputProperty().setValue("Hello, World!");
 
-    viewModel.countInputCharacters();
+        viewModel.countInputCharacters();
 
-    assertThat(viewModel.outputProperty().getValue()).isEqualTo("Hello, World! has 13 characters.");
-  }
+        assertThat(viewModel.outputProperty().getValue()).isEqualTo("Hello, World! has 13 characters.");
+    }
 
 }

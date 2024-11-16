@@ -10,19 +10,21 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class CharactersCountTests {
 
-  @NullAndEmptySource
-  @ValueSource(strings = {" "})
-  @ParameterizedTest(name = "Given input: [{0}]")
-  void of_GivenInvalidInput_ShouldThrowException(String input) {
-    assertThatIllegalArgumentException().isThrownBy(() -> CharactersCount.of(input)).withMessage("input must not be blank");
-  }
+    @NullAndEmptySource
+    @ValueSource(strings = {" "})
+    @ParameterizedTest(name = "Given input: [{0}]")
+    void of_GivenInvalidInput_ShouldThrowException(String input) {
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> CharactersCount.of(input))
+                .withMessage("input must not be blank");
+    }
 
-  @Test
-  void of_GivenValidInput_ShouldReturnCharactersCount() {
-    String input = "Durim";
+    @Test
+    void of_GivenValidInput_ShouldReturnCharactersCount() {
+        String input = "Durim";
 
-    CharactersCount charactersCount = CharactersCount.of(input);
+        CharactersCount charactersCount = CharactersCount.of(input);
 
-    assertThat(charactersCount).hasToString("Durim has 5 characters.");
-  }
+        assertThat(charactersCount).hasToString("Durim has 5 characters.");
+    }
 }

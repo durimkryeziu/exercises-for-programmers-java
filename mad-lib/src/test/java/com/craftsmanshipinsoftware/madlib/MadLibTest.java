@@ -11,25 +11,27 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class MadLibTest {
 
-  @ParameterizedTest(name = "Given input [{0}]")
-  @ValueSource(strings = {"", "dog", "dog\nwalk", "dog\nwalk\nblue"})
-  void printStory_GivenInputIsMissing_ShouldAskForMissingInput(String input) {
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    MadLib madLib = new MadLib(new ByteArrayInputStream(input.getBytes()), new PrintStream(outputStream));
+    @ParameterizedTest(name = "Given input [{0}]")
+    @ValueSource(strings = {"", "dog", "dog\nwalk", "dog\nwalk\nblue"})
+    void printStory_GivenInputIsMissing_ShouldAskForMissingInput(String input) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        MadLib madLib = new MadLib(new ByteArrayInputStream(input.getBytes()), new PrintStream(outputStream));
 
-    madLib.printStory();
+        madLib.printStory();
 
-    assertThat(outputStream).hasToString("Please enter something as input!" + System.lineSeparator());
-  }
+        assertThat(outputStream).hasToString("Please enter something as input!" + System.lineSeparator());
+    }
 
-  @Test
-  void printStory_GivenAllNeededInput_ShouldPrintStory() {
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    MadLib madLib = new MadLib(new ByteArrayInputStream("dog\nwalk\nblue\nquickly".getBytes()), new PrintStream(outputStream));
+    @Test
+    void printStory_GivenAllNeededInput_ShouldPrintStory() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        MadLib madLib = new MadLib(new ByteArrayInputStream("dog\nwalk\nblue\nquickly".getBytes()),
+                new PrintStream(outputStream));
 
-    madLib.printStory();
+        madLib.printStory();
 
-    assertThat(outputStream).hasToString("Do you walk your blue dog quickly? That's hilarious!" + System.lineSeparator());
-  }
+        assertThat(outputStream).hasToString(
+                "Do you walk your blue dog quickly? That's hilarious!" + System.lineSeparator());
+    }
 
 }

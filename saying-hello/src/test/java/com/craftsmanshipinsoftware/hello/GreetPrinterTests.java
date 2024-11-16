@@ -10,16 +10,17 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class GreetPrinterTests {
 
-  @ParameterizedTest(name = "Given name: {0}")
-  @ValueSource(strings = {"Durim", "John Doe"})
-  void sayHello_GivenNameIsProvided_ShouldGreetProperly(String name) {
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    GreetPrinter greetPrinter = new GreetPrinter(new ByteArrayInputStream(name.getBytes()), new PrintStream(outputStream));
+    @ParameterizedTest(name = "Given name: {0}")
+    @ValueSource(strings = {"Durim", "John Doe"})
+    void sayHello_GivenNameIsProvided_ShouldGreetProperly(String name) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        GreetPrinter greetPrinter = new GreetPrinter(new ByteArrayInputStream(name.getBytes()),
+                new PrintStream(outputStream));
 
-    greetPrinter.sayHello();
+        greetPrinter.sayHello();
 
-    assertThat(outputStream)
-        .hasToString("Hello, %s, nice to meet you!%n", name);
-  }
+        assertThat(outputStream)
+                .hasToString("Hello, %s, nice to meet you!%n", name);
+    }
 
 }

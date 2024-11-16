@@ -2,8 +2,8 @@ package com.craftsmanshipinsoftware.prntqts;
 
 public class Main {
 
-  public static void main(String[] args) {
-    QuotesPrinter quotesPrinter = new QuotesPrinter(System.in, System.out);
-    quotesPrinter.displayQuote();
-  }
+    public static void main(String[] args) {
+        QuotesPrinter quotesPrinter = new QuotesPrinter(System.in, System.out);
+        quotesPrinter.displayQuote();
+    }
 }
