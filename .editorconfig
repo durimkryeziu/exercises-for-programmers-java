@@ -1,6 +1,6 @@
 root = true
 
-[*.{groovy,java,js,html,css}]
+[*.{groovy,java,js,html,css,xml}]
 charset = utf-8
 end_of_line = lf
 indent_size = 4
