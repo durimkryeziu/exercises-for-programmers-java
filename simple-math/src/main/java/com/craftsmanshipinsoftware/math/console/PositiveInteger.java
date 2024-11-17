@@ -32,17 +32,17 @@ final class PositiveInteger extends Number {
 
     @Override
     public long longValue() {
-        return this.value.longValue();
+        return this.value;
     }
 
     @Override
     public float floatValue() {
-        return this.value.floatValue();
+        return this.value;
     }
 
     @Override
     public double doubleValue() {
-        return this.value.doubleValue();
+        return this.value;
     }
 
     @Override
