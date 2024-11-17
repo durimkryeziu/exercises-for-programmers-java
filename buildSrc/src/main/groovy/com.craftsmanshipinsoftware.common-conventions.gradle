@@ -24,7 +24,6 @@ testing {
 pmd {
     consoleOutput = true
     toolVersion = libs.versions.pmd.get()
-    ruleSets = ["category/java/errorprone.xml",
-                "category/java/bestpractices.xml",
-                "category/java/performance.xml"]
+    ruleSets = []
+    ruleSetFiles = files(file("${rootProject.projectDir}/config/pmd/ruleset.xml"))
 }
