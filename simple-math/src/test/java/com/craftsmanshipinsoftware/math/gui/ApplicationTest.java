@@ -98,11 +98,11 @@ class ApplicationTest {
     }
 
     private HtmlPage getHtmlPage() throws IOException {
-      return this.webClient.getPage("http://localhost/index.html");
+        return this.webClient.getPage("http://localhost/index.html");
     }
 
     private static void fireInputEventFor(HtmlNumberInput numberInput) {
-      numberInput.fireEvent("input");
+        numberInput.fireEvent("input");
     }
 
     private HtmlNumberInput secondInputNumberInput(HtmlPage page) {
