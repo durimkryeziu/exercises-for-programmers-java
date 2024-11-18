@@ -9,7 +9,7 @@ Exercises for Programmers: 57 Challenges to Develop Your Coding Skills by Brian 
 - Exercise 3. [Printing Quotes](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/printing-quotes)
 - Exercise 4. [Mad Lib](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/mad-lib)
 - Exercise 5. [Simple Math](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/simple-math)
-- Exercise 6. Retirement Calculator
+- Exercise 6. [Retirement Calculator](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/retirement-calculator)
 
 **Calculations**
 - Exercise 7. Area of a Rectangular Room
