@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'pmd'
+    id 'checkstyle'
 }
 
 repositories {
@@ -26,4 +27,8 @@ pmd {
     toolVersion = libs.versions.pmd.get()
     ruleSets = []
     ruleSetFiles = files(file("${rootProject.projectDir}/config/pmd/ruleset.xml"))
+}
+
+checkstyle {
+    toolVersion = libs.versions.checkstyle.get()
 }
