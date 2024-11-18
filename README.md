@@ -1,7 +1,7 @@
 # Exercises for Programmers -  Java
 Exercises for Programmers: 57 Challenges to Develop Your Coding Skills by Brian P. Hogan in Java
 
-[You can buy the book here](https://www.amazon.com/Exercises-Programmers-Challenges-Develop-Coding/dp/1680501224)
+[You can buy the book here](https://pragprog.com/titles/bhwb/exercises-for-programmers/)
 
 **Input, Processing, and Output**
 - Exercise 1. [Saying Hello](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/saying-hello)
