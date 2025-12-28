@@ -8,6 +8,7 @@ import java.util.Scanner;
 class SimpleMath {
 
     private final PrintStream printStream;
+
     private final InputStream inputStream;
 
     SimpleMath(InputStream inputStream, PrintStream printStream) {

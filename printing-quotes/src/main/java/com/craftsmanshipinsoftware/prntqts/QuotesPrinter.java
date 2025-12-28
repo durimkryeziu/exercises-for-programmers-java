@@ -8,6 +8,7 @@ import java.util.Scanner;
 class QuotesPrinter {
 
     private final InputStream inputStream;
+
     private final PrintStream printStream;
 
     QuotesPrinter(InputStream inputStream, PrintStream printStream) {

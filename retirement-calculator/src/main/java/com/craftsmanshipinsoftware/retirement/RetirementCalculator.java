@@ -9,7 +9,9 @@ import java.util.Scanner;
 class RetirementCalculator {
 
     private final InputStream inputStream;
+
     private final PrintStream printStream;
+
     private final YearProvider yearProvider;
 
     RetirementCalculator(InputStream inputStream, PrintStream printStream, YearProvider yearProvider) {

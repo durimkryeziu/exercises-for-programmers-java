@@ -8,6 +8,7 @@ import java.util.Scanner;
 class MadLib {
 
     private final InputStream inputStream;
+
     private final PrintStream printStream;
 
     MadLib(InputStream inputStream, PrintStream printStream) {

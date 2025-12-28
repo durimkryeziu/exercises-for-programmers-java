@@ -8,6 +8,7 @@ import java.util.Scanner;
 final class GreetPrinter {
 
     private final InputStream inputStream;
+
     private final PrintStream printStream;
 
     GreetPrinter(InputStream inputStream, PrintStream printStream) {

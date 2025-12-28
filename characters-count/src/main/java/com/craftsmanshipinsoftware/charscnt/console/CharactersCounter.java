@@ -5,9 +5,10 @@ import java.io.PrintStream;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class CharactersCounter {
+public final class CharactersCounter {
 
     private final InputStream inputStream;
+
     private final PrintStream printStream;
 
     public CharactersCounter(InputStream inputStream, PrintStream printStream) {

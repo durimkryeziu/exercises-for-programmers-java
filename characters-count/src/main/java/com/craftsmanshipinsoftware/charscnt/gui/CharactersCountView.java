@@ -8,6 +8,16 @@ import javafx.scene.layout.VBox;
 
 final class CharactersCountView extends VBox {
 
+    private static final int SPACING_VALUE = 10;
+
+    private static final int TOP = 10;
+
+    private static final int RIGHT = 20;
+
+    private static final int BOTTOM = 10;
+
+    private static final int LEFT = 20;
+
     private final TextField inputTextField = new TextField();
 
     private final Label outputLabel = new Label();
@@ -21,9 +31,9 @@ final class CharactersCountView extends VBox {
     }
 
     private void createView() {
-        setSpacing(10);
+        setSpacing(SPACING_VALUE);
         setAlignment(Pos.CENTER);
-        setPadding(new Insets(10, 20, 10, 20));
+        setPadding(new Insets(TOP, RIGHT, BOTTOM, LEFT));
         this.getChildren().addAll(new Label("What is the input string?"), this.inputTextField, this.outputLabel);
     }
 

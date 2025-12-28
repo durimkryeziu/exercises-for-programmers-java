@@ -52,7 +52,7 @@ final class PositiveInteger extends Number {
 
     @Override
     public boolean equals(Object obj) {
-        return this == obj || (obj instanceof PositiveInteger that && this.value.equals(that.value));
+        return this == obj || obj instanceof PositiveInteger that && this.value.equals(that.value);
     }
 
     @Override
