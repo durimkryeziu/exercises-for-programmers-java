@@ -28,6 +28,10 @@ jobs:
       run: ./gradlew pmdMain pmdTest
       continue-on-error: false # Fail if code quality issues are found
 
+    - name: Run Checkstyle Analysis
+      run: ./gradlew checkstyleMain checkstyleTest
+      continue-on-error: false # Fail if code style issues are found
+
     - name: Run Unit Tests
       run: ./gradlew test
 
