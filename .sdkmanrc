@@ -1,2 +1,2 @@
 # Enable auto-env through the sdkman_auto_env config
-java=21.0.4-tem
+java=25.0.1-tem
