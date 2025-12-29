@@ -4,11 +4,11 @@ checkstyle = "12.3.0"
 javafxplugin = "0.1.0"
 junit-jupiter = "6.0.1"
 pmd = "7.16.0"
-spring-boot = "3.3.5"
+spring-boot = "3.5.9"
 
 [libraries]
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj-core" }
-htmlunit = { module = "net.sourceforge.htmlunit:htmlunit" }
+htmlunit = { module = "org.htmlunit:htmlunit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
 spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
