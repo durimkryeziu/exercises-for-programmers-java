@@ -3,7 +3,7 @@ assertj-core = "3.27.6"
 checkstyle = "12.3.0"
 javafxplugin = "0.1.0"
 junit-jupiter = "6.0.1"
-pmd = "7.6.0"
+pmd = "7.16.0"
 spring-boot = "3.3.5"
 
 [libraries]

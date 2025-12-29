@@ -23,14 +23,14 @@
     <rule ref="category/java/bestpractices.xml/AvoidUsingHardCodedIP"/>
     <rule ref="category/java/bestpractices.xml/CheckResultSet"/>
     <rule ref="category/java/bestpractices.xml/ConstantsInInterface"/>
-    <rule ref="category/java/bestpractices.xml/DefaultLabelNotLastInSwitchStmt"/>
+    <rule ref="category/java/bestpractices.xml/DefaultLabelNotLastInSwitch"/>
     <rule ref="category/java/bestpractices.xml/DoubleBraceInitialization"/>
     <rule ref="category/java/bestpractices.xml/ForLoopCanBeForeach"/>
     <rule ref="category/java/bestpractices.xml/ForLoopVariableCount"/>
     <rule ref="category/java/bestpractices.xml/GuardLogStatement"/>
     <rule ref="category/java/bestpractices.xml/JUnit5TestShouldBePackagePrivate"/>
-    <rule ref="category/java/bestpractices.xml/JUnitAssertionsShouldIncludeMessage"/>
-    <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts">
+    <rule ref="category/java/bestpractices.xml/UnitTestAssertionsShouldIncludeMessage"/>
+    <rule ref="category/java/bestpractices.xml/UnitTestContainsTooManyAsserts">
         <properties>
             <property name="maximumAsserts" value="7"/>
         </properties>
@@ -46,7 +46,7 @@
     <rule ref="category/java/bestpractices.xml/ReplaceHashtableWithMap"/>
     <rule ref="category/java/bestpractices.xml/ReplaceVectorWithList"/>
     <rule ref="category/java/bestpractices.xml/SimplifiableTestAssertion"/>
-    <rule ref="category/java/bestpractices.xml/SwitchStmtsShouldHaveDefault"/>
+    <rule ref="category/java/bestpractices.xml/NonExhaustiveSwitch"/>
     <rule ref="category/java/bestpractices.xml/SystemPrintln"/>
     <rule ref="category/java/bestpractices.xml/UnnecessaryVarargsArrayCreation"/>
     <rule ref="category/java/bestpractices.xml/UnusedAssignment"/>
