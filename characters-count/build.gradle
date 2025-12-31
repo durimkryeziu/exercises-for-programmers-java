@@ -1,7 +1,7 @@
 plugins {
     id 'application'
     alias(libs.plugins.javafxplugin)
-    id 'com.craftsmanshipinsoftware.common-conventions'
+    id 'dev.delivercraft.common-conventions'
 }
 
 javafx {
@@ -10,7 +10,7 @@ javafx {
 }
 
 application {
-    mainClass.set('com.craftsmanshipinsoftware.charscnt.gui.Main')
+    mainClass.set('dev.delivercraft.charscnt.gui.Main')
 }
 
 dependencies {
