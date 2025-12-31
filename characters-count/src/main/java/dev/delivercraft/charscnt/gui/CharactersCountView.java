@@ -40,6 +40,6 @@ final class CharactersCountView extends VBox {
     private void bindViewModel() {
         this.inputTextField.textProperty().bindBidirectional(this.viewModel.inputProperty());
         this.outputLabel.textProperty().bind(this.viewModel.outputProperty());
-        this.viewModel.inputProperty().addListener((obs, ov, nv) -> this.viewModel.countInputCharacters());
+        this.viewModel.inputProperty().addListener((_, _, _) -> this.viewModel.countInputCharacters());
     }
 }
