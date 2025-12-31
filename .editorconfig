@@ -10,3 +10,5 @@ max_line_length = 120
 trim_trailing_whitespace = true
 ij_continuation_indent_size = 8
 ij_java_blank_lines_around_field = 1
+ij_java_wrap_long_lines = true
+ij_java_binary_operation_sign_on_next_line = true
