@@ -24,7 +24,7 @@ class RetirementCalculator {
     }
 
     void printYearsLeft() {
-        try (Scanner scanner = new Scanner(inputStream)) {
+        try (Scanner scanner = new Scanner(this.inputStream)) {
             int currentAge = toInt(promptForInput("What is your current age? ", scanner));
             int retirementAge = toInt(promptForInput("At what age would you like to retire? ", scanner));
             int yearsLeft = retirementAge - currentAge;

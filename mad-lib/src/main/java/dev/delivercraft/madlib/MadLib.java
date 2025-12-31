@@ -19,7 +19,7 @@ class MadLib {
     }
 
     void printStory() {
-        try (Scanner scanner = new Scanner(inputStream)) {
+        try (Scanner scanner = new Scanner(this.inputStream)) {
             String noun = promptForInput("Enter a noun: ", scanner);
             if (noun == null) {
                 return;

@@ -19,7 +19,7 @@ class SimpleMath {
     }
 
     void printOutput() {
-        try (Scanner scanner = new Scanner(inputStream)) {
+        try (Scanner scanner = new Scanner(this.inputStream)) {
             String firstInput = promptForInput("What is the first number? ", scanner);
             PositiveInteger firstNumber = PositiveInteger.of(firstInput);
             String secondInput = promptForInput("What is the second number? ", scanner);

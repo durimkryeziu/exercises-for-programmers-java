@@ -114,7 +114,10 @@
         <module name="RecordTypeParameterName"/>
         <module name="RedundantImport"/>
         <module name="RedundantModifier"/>
-        <module name="RequireThis"/>
+        <module name="RequireThis">
+            <property name="validateOnlyOverlapping" value="false"/>
+            <property name="checkMethods" value="false"/>
+        </module>
         <module name="RightCurly"/>
         <module name="SealedShouldHavePermitsList"/>
         <module name="SeparatorWrap">
