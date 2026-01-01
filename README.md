@@ -12,7 +12,7 @@ Exercises for Programmers: 57 Challenges to Develop Your Coding Skills by Brian 
 - Exercise 6. [Retirement Calculator](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/retirement-calculator)
 
 **Calculations**
-- Exercise 7. Area of a Rectangular Room
+- Exercise 7. [Area of a Rectangular Room](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/area-rectangular-room)
 - Exercise 8. Pizza Party
 - Exercise 9. Paint Calculator
 - Exercise 10. Self-Checkout
