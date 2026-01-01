@@ -1,8 +1,8 @@
 package dev.delivercraft.hello;
 
-public class Main {
+public final class Main {
 
-    public static void main(String[] args) {
+    void main() {
         GreetPrinter greetPrinter = new GreetPrinter(System.in, System.out);
         greetPrinter.sayHello();
     }

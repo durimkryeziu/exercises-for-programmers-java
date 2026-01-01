@@ -1,8 +1,8 @@
 package dev.delivercraft.math.console;
 
-public class Main {
+public final class Main {
 
-    public static void main(String[] args) {
+    void main() {
         SimpleMath simpleMath = new SimpleMath(System.in, System.out);
         simpleMath.printOutput();
     }

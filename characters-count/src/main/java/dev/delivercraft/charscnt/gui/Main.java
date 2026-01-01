@@ -2,9 +2,9 @@ package dev.delivercraft.charscnt.gui;
 
 import javafx.application.Application;
 
-public class Main {
+public final class Main {
 
-    public static void main(String[] args) {
+    void main() {
         Application.launch(CharactersCountApplication.class);
     }
 

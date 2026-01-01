@@ -1,8 +1,8 @@
 package dev.delivercraft.madlib;
 
-public class Main {
+public final class Main {
 
-    public static void main(String[] args) {
+    void main() {
         MadLib madLib = new MadLib(System.in, System.out);
         madLib.printStory();
     }
