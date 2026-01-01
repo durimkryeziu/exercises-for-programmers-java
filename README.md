@@ -1,4 +1,9 @@
 # Exercises for Programmers -  Java
+
+[![Build](https://img.shields.io/github/actions/workflow/status/durimkryeziu/exercises-for-programmers-java/build.yml?branch=main&logo=github)](https://github.com/durimkryeziu/exercises-for-programmers-java/actions)
+[![License: MIT](https://img.shields.io/github/license/durimkryeziu/exercises-for-programmers-java)](https://github.com/durimkryeziu/exercises-for-programmers-java/blob/main/LICENSE)
+![Java](https://img.shields.io/badge/Java-25-blue?logo=openjdk)
+
 Exercises for Programmers: 57 Challenges to Develop Your Coding Skills by Brian P. Hogan in Java
 
 [You can buy the book here](https://pragprog.com/titles/bhwb/exercises-for-programmers/)
