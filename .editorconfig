@@ -12,3 +12,4 @@ ij_continuation_indent_size = 8
 ij_java_blank_lines_around_field = 1
 ij_java_wrap_long_lines = true
 ij_java_binary_operation_sign_on_next_line = true
+ij_java_class_count_to_use_import_on_demand = 999
