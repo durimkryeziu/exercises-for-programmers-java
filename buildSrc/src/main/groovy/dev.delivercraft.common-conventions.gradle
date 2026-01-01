@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'pmd'
     id 'checkstyle'
+    id 'jacoco'
 }
 
 repositories {
@@ -31,4 +32,19 @@ pmd {
 
 checkstyle {
     toolVersion = libs.versions.checkstyle.get()
+}
+
+jacoco {
+    toolVersion = libs.versions.jacoco.get()
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        html.required = false
+    }
+}
+
+tasks.check {
+    dependsOn tasks.jacocoTestReport
 }
