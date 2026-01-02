@@ -35,6 +35,7 @@ class InputStreamLineReaderTest {
 
     @Test
     void readLine_GivenNullInputStream_ShouldThrowException() throws IOException {
+        @SuppressWarnings("PMD.CloseResource") // This is to simulate a closed stream for testing
         InputStream inputStream = InputStream.nullInputStream();
         inputStream.close();
 
