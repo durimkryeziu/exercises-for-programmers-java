@@ -1,6 +1,8 @@
 package dev.delivercraft.rectangular;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import java.util.StringJoiner;
 
@@ -9,9 +11,10 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 
 class AreaRectangularRoomCalculatorTest {
 
-    @Test
-    void calculateArea_GivenNoInput_ShouldThrowException() {
-        LineReader lineReader = () -> null;
+    @ParameterizedTest
+    @NullAndEmptySource
+    void calculateArea_GivenNoInput_ShouldThrowException(String input) {
+        LineReader lineReader = () -> input;
         AreaRectangularRoomCalculator calculator = new AreaRectangularRoomCalculator(lineReader,
                 new InMemoryLineWriter());
 

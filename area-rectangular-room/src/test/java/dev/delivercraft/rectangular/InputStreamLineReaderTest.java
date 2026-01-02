@@ -3,8 +3,12 @@ package dev.delivercraft.rectangular;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class InputStreamLineReaderTest {
 
@@ -27,5 +31,16 @@ class InputStreamLineReaderTest {
         String result = lineReader.readLine();
 
         assertThat(result).isEqualTo("Hello, World!");
+    }
+
+    @Test
+    void readLine_GivenNullInputStream_ShouldThrowException() throws IOException {
+        InputStream inputStream = InputStream.nullInputStream();
+        inputStream.close();
+
+        LineReader lineReader = new InputStreamLineReader(inputStream);
+
+        assertThatExceptionOfType(UncheckedIOException.class)
+                .isThrownBy(lineReader::readLine);
     }
 }
