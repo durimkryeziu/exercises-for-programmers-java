@@ -1,8 +1,7 @@
 # Exercises for Programmers -  Java
 
 [![Build](https://img.shields.io/github/actions/workflow/status/durimkryeziu/exercises-for-programmers-java/build.yml?branch=main&logo=github&style=flat-square)](https://github.com/durimkryeziu/exercises-for-programmers-java/actions)
-[![Codecov](https://img.shields.io/codecov/c/github/durimkryeziu/exercises-for-programmers-java?style=flat-square&logo=codecov&color=%23F01F7A)
-](https://app.codecov.io/github/durimkryeziu/exercises-for-programmers-java)
+[![Codecov](https://img.shields.io/codecov/c/github/durimkryeziu/exercises-for-programmers-java?style=flat-square&logo=codecov&color=%23F01F7A)](https://app.codecov.io/github/durimkryeziu/exercises-for-programmers-java)
 ![Java](https://img.shields.io/badge/Java-25-blue?logo=openjdk&style=flat-square)
 ![Commits](https://img.shields.io/github/commit-activity/t/durimkryeziu/exercises-for-programmers-java?logo=git&color=%23F05032&style=flat-square)
 [![License: MIT](https://img.shields.io/github/license/durimkryeziu/exercises-for-programmers-java?style=flat-square)](https://github.com/durimkryeziu/exercises-for-programmers-java/blob/main/LICENSE)
