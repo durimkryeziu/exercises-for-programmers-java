@@ -19,6 +19,14 @@ testing {
     suites {
         test {
             useJUnitJupiter()
+            targets.configureEach {
+                testTask.configure {
+                    jvmArgs '-Djunit.jupiter.execution.parallel.enabled=true',
+                            '-Djunit.jupiter.execution.parallel.mode.default=concurrent',
+                            '-Djunit.jupiter.execution.parallel.mode.classes.default=concurrent',
+                            '-Djunit.jupiter.execution.parallel.config.strategy=dynamic'
+                }
+            }
         }
     }
 }
