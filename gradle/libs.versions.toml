@@ -1,5 +1,5 @@
 [versions]
-assertj-core = "3.27.6"
+assertj-core = "3.27.7"
 checkstyle = "12.3.0"
 jacoco = "0.8.14"
 javafxplugin = "0.1.0"
