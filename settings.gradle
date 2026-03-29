@@ -6,5 +6,6 @@ include(
         'mad-lib',
         'simple-math',
         'retirement-calculator',
-        'area-rectangular-room'
+        'area-rectangular-room',
+        'pizza-party'
 )

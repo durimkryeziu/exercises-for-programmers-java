@@ -20,7 +20,7 @@ Exercises for Programmers: 57 Challenges to Develop Your Coding Skills by Brian 
 
 **Calculations**
 - Exercise 7. [Area of a Rectangular Room](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/area-rectangular-room)
-- Exercise 8. Pizza Party
+- Exercise 8. [Pizza Party](https://github.com/durimkryeziu/exercises-for-programmers-java/tree/main/pizza-party)
 - Exercise 9. Paint Calculator
 - Exercise 10. Self-Checkout
 - Exercise 11. Currency Conversion
