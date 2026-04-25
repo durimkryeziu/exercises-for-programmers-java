@@ -1,4 +1,4 @@
-package dev.delivercraft.pizza;
+package dev.delivercraft.io;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +9,7 @@ import java.io.UncheckedIOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 class InputStreamLineReaderTest {
 
@@ -34,14 +35,22 @@ class InputStreamLineReaderTest {
     }
 
     @Test
-    void readLine_GivenNullInputStream_ShouldThrowException() throws IOException {
-        @SuppressWarnings("PMD.CloseResource")
+    void readLine_GivenFailingInputStream_ShouldThrowUncheckedIOException() throws IOException {
+        @SuppressWarnings("PMD.CloseResource") // This is to simulate a closed stream for testing
         InputStream inputStream = InputStream.nullInputStream();
         inputStream.close();
 
         LineReader lineReader = new InputStreamLineReader(inputStream);
 
         assertThatExceptionOfType(UncheckedIOException.class)
-                .isThrownBy(lineReader::readLine);
+                .isThrownBy(lineReader::readLine)
+                .withCauseInstanceOf(IOException.class);
+    }
+
+    @Test
+    void constructor_GivenNullInputStream_ShouldThrowException() {
+        assertThatNullPointerException()
+                .isThrownBy(() -> new InputStreamLineReader(null))
+                .withMessage("inputStream must not be null");
     }
 }
