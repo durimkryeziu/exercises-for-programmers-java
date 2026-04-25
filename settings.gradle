@@ -1,5 +1,6 @@
 rootProject.name = 'exercises-for-programmers-java'
 include(
+        'line-io',
         'saying-hello',
         'characters-count',
         'printing-quotes',

@@ -1,19 +1,20 @@
 package dev.delivercraft.pizza;
 
+import dev.delivercraft.io.CapturingLineWriter;
+import dev.delivercraft.io.LineReader;
+import dev.delivercraft.io.LineWriter;
+import dev.delivercraft.io.StubLineReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class PizzaPurchasePlannerTest {
-
-    private static final int SINGLE_INPUT = 1;
 
     private static final String EIGHT = "8";
 
@@ -36,7 +37,7 @@ class PizzaPurchasePlannerTest {
     @MethodSource("promptTexts")
     void asksForPrompts(String prompt) {
         LineReader lineReader = new StubLineReader("8", "2");
-        LineWriter lineWriter = new InMemoryLineWriter();
+        LineWriter lineWriter = new CapturingLineWriter();
         PizzaPurchasePlanner planner = new PizzaPurchasePlanner(lineReader, lineWriter);
 
         planner.displayPizzaPurchasePlan();
@@ -52,7 +53,7 @@ class PizzaPurchasePlannerTest {
     @MethodSource("plannerOutputs")
     void displaysRequiredPizzaCount(String people, String piecesPerPerson, String expectedOutput) {
         LineReader lineReader = new StubLineReader(people, piecesPerPerson);
-        LineWriter lineWriter = new InMemoryLineWriter();
+        LineWriter lineWriter = new CapturingLineWriter();
         PizzaPurchasePlanner planner = new PizzaPurchasePlanner(lineReader, lineWriter);
 
         planner.displayPizzaPurchasePlan();
@@ -74,21 +75,26 @@ class PizzaPurchasePlannerTest {
 
     @ParameterizedTest
     @MethodSource("missingInputs")
-    void inputIsRequired(String input) {
-        PizzaPurchasePlanner planner = new PizzaPurchasePlanner(new StubLineReader(input), new InMemoryLineWriter());
+    void inputIsRequired(String people, String piecesPerPerson) {
+        PizzaPurchasePlanner planner = new PizzaPurchasePlanner(new StubLineReader(people, piecesPerPerson),
+                new CapturingLineWriter());
 
         assertThatIllegalArgumentException().isThrownBy(planner::displayPizzaPurchasePlan).withMessage("Input must "
                 + "not be empty!");
     }
 
-    private static Stream<String> missingInputs() {
-        return Stream.of("", " ", System.lineSeparator() + TWO + System.lineSeparator(),
-                EIGHT + System.lineSeparator() + System.lineSeparator());
+    private static Stream<Arguments> missingInputs() {
+        return Stream.of(
+                Arguments.of("", TWO),
+                Arguments.of(" ", TWO),
+                Arguments.of(EIGHT, ""),
+                Arguments.of(EIGHT, " "));
     }
 
     @Test
     void inputMustBeANumber() {
-        PizzaPurchasePlanner planner = new PizzaPurchasePlanner(new StubLineReader(ABC, TWO), new InMemoryLineWriter());
+        CapturingLineWriter writer = new CapturingLineWriter();
+        PizzaPurchasePlanner planner = new PizzaPurchasePlanner(new StubLineReader(ABC, TWO), writer);
 
         assertThatIllegalArgumentException().isThrownBy(planner::displayPizzaPurchasePlan).withMessage("Please enter "
                 + "a valid number! Input: abc");
@@ -97,7 +103,7 @@ class PizzaPurchasePlannerTest {
     @Test
     void inputMustBePositive() {
         PizzaPurchasePlanner planner = new PizzaPurchasePlanner(new StubLineReader(EIGHT, "-1"),
-                new InMemoryLineWriter());
+                new CapturingLineWriter());
 
         assertThatIllegalArgumentException().isThrownBy(planner::displayPizzaPurchasePlan).withMessage("Please enter "
                 + "a positive number! Input: -1");
@@ -106,49 +112,9 @@ class PizzaPurchasePlannerTest {
     @Test
     void peopleMustBeGreaterThanZero() {
         PizzaPurchasePlanner planner = new PizzaPurchasePlanner(new StubLineReader(ZERO, TWO),
-                new InMemoryLineWriter());
+                new CapturingLineWriter());
 
         assertThatIllegalArgumentException().isThrownBy(planner::displayPizzaPurchasePlan).withMessage("Number of "
                 + "people must be greater than zero!");
-    }
-
-    private static final class StubLineReader implements LineReader {
-
-        private final String[] inputs;
-
-        private int index;
-
-        private StubLineReader(String... inputs) {
-            if (inputs.length == SINGLE_INPUT) {
-                this.inputs = inputs[0].split("\\n", -1);
-            } else {
-                this.inputs = inputs;
-            }
-        }
-
-        @Override
-        public String readLine() {
-            return this.inputs[this.index++];
-        }
-    }
-
-    private static final class InMemoryLineWriter implements LineWriter {
-
-        private final StringJoiner stringJoiner = new StringJoiner("");
-
-        @Override
-        public void write(String text) {
-            this.stringJoiner.add(text);
-        }
-
-        @Override
-        public void writeLine(String line) {
-            this.stringJoiner.add(line).add(System.lineSeparator());
-        }
-
-        @Override
-        public String toString() {
-            return this.stringJoiner.toString();
-        }
     }
 }

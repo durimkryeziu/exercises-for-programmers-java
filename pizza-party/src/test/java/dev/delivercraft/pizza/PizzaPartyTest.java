@@ -1,19 +1,20 @@
 package dev.delivercraft.pizza;
 
+import dev.delivercraft.io.CapturingLineWriter;
+import dev.delivercraft.io.LineReader;
+import dev.delivercraft.io.LineWriter;
+import dev.delivercraft.io.StubLineReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class PizzaPartyTest {
-
-    private static final int SINGLE_INPUT = 1;
 
     private static final String FIRST_INPUT = Integer.toString(8);
 
@@ -32,7 +33,7 @@ class PizzaPartyTest {
     @MethodSource("promptTexts")
     void asksForPrompts(String prompt) {
         LineReader lineReader = new StubLineReader(FIRST_INPUT, SECOND_NUMBER, THIRD_NUMBER);
-        LineWriter lineWriter = new InMemoryLineWriter();
+        LineWriter lineWriter = new CapturingLineWriter();
         PizzaParty pizzaParty = new PizzaParty(lineReader, lineWriter);
 
         pizzaParty.displayPizzaParty();
@@ -51,7 +52,7 @@ class PizzaPartyTest {
     @MethodSource("pizzaOutputs")
     void displaysPizzaOutput(String people, String pizzas, String slicesPerPizza, String expectedOutput) {
         LineReader lineReader = new StubLineReader(people, pizzas, slicesPerPizza);
-        LineWriter lineWriter = new InMemoryLineWriter();
+        LineWriter lineWriter = new CapturingLineWriter();
         PizzaParty pizzaParty = new PizzaParty(lineReader, lineWriter);
 
         pizzaParty.displayPizzaParty();
@@ -85,27 +86,29 @@ class PizzaPartyTest {
 
     @ParameterizedTest
     @MethodSource("missingInputs")
-    void inputIsRequired(String input) {
-        PizzaParty pizzaParty = new PizzaParty(new StubLineReader(input), new InMemoryLineWriter());
+    void inputIsRequired(String people, String pizzas, String slicesPerPizza) {
+        PizzaParty pizzaParty = new PizzaParty(new StubLineReader(people, pizzas, slicesPerPizza),
+                new CapturingLineWriter());
 
         assertThatIllegalArgumentException()
                 .isThrownBy(pizzaParty::displayPizzaParty)
                 .withMessage("Input must not be empty!");
     }
 
-    private static Stream<String> missingInputs() {
+    private static Stream<Arguments> missingInputs() {
         return Stream.of(
-                "",
-                " ",
-                System.lineSeparator() + SECOND_NUMBER + System.lineSeparator() + THIRD_NUMBER,
-                FIRST_INPUT + System.lineSeparator() + System.lineSeparator() + THIRD_NUMBER,
-                FIRST_INPUT + System.lineSeparator() + SECOND_NUMBER + System.lineSeparator());
+                Arguments.of("", SECOND_NUMBER, THIRD_NUMBER),
+                Arguments.of(" ", SECOND_NUMBER, THIRD_NUMBER),
+                Arguments.of(FIRST_INPUT, "", THIRD_NUMBER),
+                Arguments.of(FIRST_INPUT, " ", THIRD_NUMBER),
+                Arguments.of(FIRST_INPUT, SECOND_NUMBER, ""),
+                Arguments.of(FIRST_INPUT, SECOND_NUMBER, " "));
     }
 
     @Test
     void inputMustBeANumber() {
         PizzaParty pizzaParty = new PizzaParty(
-                new StubLineReader("abc", SECOND_NUMBER, THIRD_NUMBER), new InMemoryLineWriter());
+                new StubLineReader("abc", SECOND_NUMBER, THIRD_NUMBER), new CapturingLineWriter());
 
         assertThatIllegalArgumentException()
                 .isThrownBy(pizzaParty::displayPizzaParty)
@@ -115,7 +118,7 @@ class PizzaPartyTest {
     @Test
     void inputMustBePositive() {
         PizzaParty pizzaParty = new PizzaParty(
-                new StubLineReader("-1", SECOND_NUMBER, THIRD_NUMBER), new InMemoryLineWriter());
+                new StubLineReader("-1", SECOND_NUMBER, THIRD_NUMBER), new CapturingLineWriter());
 
         assertThatIllegalArgumentException()
                 .isThrownBy(pizzaParty::displayPizzaParty)
@@ -125,51 +128,10 @@ class PizzaPartyTest {
     @Test
     void peopleMustBeGreaterThanZero() {
         PizzaParty pizzaParty = new PizzaParty(new StubLineReader("0", SECOND_NUMBER, THIRD_NUMBER),
-                new InMemoryLineWriter());
+                new CapturingLineWriter());
 
         assertThatIllegalArgumentException()
                 .isThrownBy(pizzaParty::displayPizzaParty)
                 .withMessage("Number of people must be greater than zero!");
     }
-
-    private static final class StubLineReader implements LineReader {
-
-        private final String[] inputs;
-
-        private int index;
-
-        private StubLineReader(String... inputs) {
-            if (inputs.length == SINGLE_INPUT) {
-                this.inputs = inputs[0].split("\\n", -1);
-            } else {
-                this.inputs = inputs;
-            }
-        }
-
-        @Override
-        public String readLine() {
-            return this.inputs[this.index++];
-        }
-    }
-
-    private static final class InMemoryLineWriter implements LineWriter {
-
-        private final StringJoiner stringJoiner = new StringJoiner("");
-
-        @Override
-        public void write(String text) {
-            this.stringJoiner.add(text);
-        }
-
-        @Override
-        public void writeLine(String line) {
-            this.stringJoiner.add(line).add(System.lineSeparator());
-        }
-
-        @Override
-        public String toString() {
-            return this.stringJoiner.toString();
-        }
-    }
-
 }

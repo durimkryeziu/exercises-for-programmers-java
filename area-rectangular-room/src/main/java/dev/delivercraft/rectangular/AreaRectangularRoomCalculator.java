@@ -1,5 +1,8 @@
 package dev.delivercraft.rectangular;
 
+import dev.delivercraft.io.LineReader;
+import dev.delivercraft.io.LineWriter;
+
 class AreaRectangularRoomCalculator {
 
     private static final double CONVERSION_FACTOR = 0.092_903_04;
