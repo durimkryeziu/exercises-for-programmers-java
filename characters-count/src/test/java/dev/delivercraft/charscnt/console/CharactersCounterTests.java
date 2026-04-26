@@ -1,34 +1,37 @@
 package dev.delivercraft.charscnt.console;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import dev.delivercraft.io.CapturingLineWriter;
+import dev.delivercraft.io.LineReader;
+import dev.delivercraft.io.LineWriter;
+import dev.delivercraft.io.StubLineReader;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CharactersCounterTests {
 
     @Test
     void displayCharactersCount_GivenNoInput_ShouldAskToInputSomething() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        CharactersCounter charactersCounter = new CharactersCounter(new ByteArrayInputStream(new byte[]{}),
-                new PrintStream(outputStream));
+        LineReader lineReader = new StubLineReader();
+        LineWriter lineWriter = new CapturingLineWriter();
+        CharactersCounter charactersCounter = new CharactersCounter(lineReader, lineWriter);
 
         charactersCounter.displayCharactersCount();
 
-        assertThat(outputStream).hasToString("Please enter something as input!" + System.lineSeparator());
+        assertThat(lineWriter).hasToString("What is the input string? Please enter something as input!"
+                + System.lineSeparator());
     }
 
     @Test
     void displayCharactersCount_GivenValidInput_ShouldDisplayCharactersCount() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        CharactersCounter charactersCounter = new CharactersCounter(new ByteArrayInputStream("Durim".getBytes()),
-                new PrintStream(outputStream));
+        LineReader lineReader = new StubLineReader("Durim");
+        LineWriter lineWriter = new CapturingLineWriter();
+        CharactersCounter charactersCounter = new CharactersCounter(lineReader, lineWriter);
 
         charactersCounter.displayCharactersCount();
 
-        assertThat(outputStream).hasToString("Durim has 5 characters." + System.lineSeparator());
+        assertThat(lineWriter).hasToString("What is the input string? Durim has 5 characters."
+                + System.lineSeparator());
     }
 
 }

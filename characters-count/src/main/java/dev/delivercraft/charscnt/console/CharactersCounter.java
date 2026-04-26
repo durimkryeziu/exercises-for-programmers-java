@@ -1,42 +1,31 @@
 package dev.delivercraft.charscnt.console;
 
-import java.io.InputStream;
-import java.io.PrintStream;
+import dev.delivercraft.io.LineReader;
+import dev.delivercraft.io.LineWriter;
+
 import java.util.Objects;
-import java.util.Scanner;
 
 public final class CharactersCounter {
 
-    private final InputStream inputStream;
+    private final LineReader lineReader;
 
-    private final PrintStream printStream;
+    private final LineWriter lineWriter;
 
-    public CharactersCounter(InputStream inputStream, PrintStream printStream) {
-        Objects.requireNonNull(inputStream, "inputStream must not be null");
-        Objects.requireNonNull(printStream, "printStream must not be null");
-        this.inputStream = inputStream;
-        this.printStream = printStream;
+    public CharactersCounter(LineReader lineReader, LineWriter lineWriter) {
+        Objects.requireNonNull(lineReader, "lineReader must not be null");
+        Objects.requireNonNull(lineWriter, "lineWriter must not be null");
+        this.lineReader = lineReader;
+        this.lineWriter = lineWriter;
     }
 
     public void displayCharactersCount() {
-        askForInput();
-        String input = readInput();
+        this.lineWriter.write("What is the input string? ");
+        String input = this.lineReader.readLine();
         if (input == null || input.isBlank()) {
-            this.printStream.println("Please enter something as input!");
+            this.lineWriter.writeLine("Please enter something as input!");
             return;
         }
-        this.printStream.printf("%s has %d characters.%n", input, input.length());
-    }
-
-    @SuppressWarnings("PMD.SystemPrintln")
-    private void askForInput() {
-        System.out.print("What is the input string? ");
-    }
-
-    private String readInput() {
-        try (Scanner scanner = new Scanner(this.inputStream)) {
-            return scanner.hasNext() ? scanner.nextLine() : null;
-        }
+        this.lineWriter.writeLine("%s has %d characters.".formatted(input, input.length()));
     }
 
 }
