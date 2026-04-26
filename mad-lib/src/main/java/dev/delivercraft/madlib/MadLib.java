@@ -1,59 +1,51 @@
 package dev.delivercraft.madlib;
 
-import java.io.InputStream;
-import java.io.PrintStream;
+import dev.delivercraft.io.LineReader;
+import dev.delivercraft.io.LineWriter;
 import java.util.Objects;
-import java.util.Scanner;
 
 class MadLib {
 
-    private final InputStream inputStream;
+    private final LineReader lineReader;
 
-    private final PrintStream printStream;
+    private final LineWriter lineWriter;
 
-    MadLib(InputStream inputStream, PrintStream printStream) {
-        Objects.requireNonNull(inputStream, "inputStream cannot be null");
-        Objects.requireNonNull(printStream, "printStream cannot be null");
-        this.inputStream = inputStream;
-        this.printStream = printStream;
+    MadLib(LineReader lineReader, LineWriter lineWriter) {
+        Objects.requireNonNull(lineReader, "lineReader cannot be null");
+        Objects.requireNonNull(lineWriter, "lineWriter cannot be null");
+        this.lineReader = lineReader;
+        this.lineWriter = lineWriter;
     }
 
     void printStory() {
-        try (Scanner scanner = new Scanner(this.inputStream)) {
-            String noun = promptForInput("Enter a noun: ", scanner);
-            if (noun == null) {
-                return;
-            }
-            String verb = promptForInput("Enter a verb: ", scanner);
-            if (verb == null) {
-                return;
-            }
-            String adjective = promptForInput("Enter an adjective: ", scanner);
-            if (adjective == null) {
-                return;
-            }
-            String adverb = promptForInput("Enter an adverb: ", scanner);
-            if (adverb == null) {
-                return;
-            }
-            this.printStream.println(
-                    "Do you " + verb + " your " + adjective + " " + noun + " " + adverb + "? That's hilarious!");
+        String noun = promptForInput("Enter a noun: ");
+        if (noun == null) {
+            return;
         }
+        String verb = promptForInput("Enter a verb: ");
+        if (verb == null) {
+            return;
+        }
+        String adjective = promptForInput("Enter an adjective: ");
+        if (adjective == null) {
+            return;
+        }
+        String adverb = promptForInput("Enter an adverb: ");
+        if (adverb == null) {
+            return;
+        }
+        this.lineWriter.writeLine("Do you " + verb + " your " + adjective + " " + noun + " " + adverb
+                + "? That's hilarious!");
     }
 
-    @SuppressWarnings("PMD.SystemPrintln")
-    private String promptForInput(String prompt, Scanner scanner) {
-        System.out.print(prompt);
-        String input = readInput(scanner);
+    private String promptForInput(String prompt) {
+        this.lineWriter.write(prompt);
+        String input = this.lineReader.readLine();
         if (input == null || input.isBlank()) {
-            this.printStream.println("Please enter something as input!");
+            this.lineWriter.writeLine("Please enter something as input!");
             return null;
         }
         return input;
-    }
-
-    private String readInput(Scanner scanner) {
-        return scanner.hasNext() ? scanner.nextLine() : null;
     }
 
 }
