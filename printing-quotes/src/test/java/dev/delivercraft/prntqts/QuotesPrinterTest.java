@@ -1,46 +1,44 @@
 package dev.delivercraft.prntqts;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import dev.delivercraft.io.CapturingLineWriter;
+import dev.delivercraft.io.LineWriter;
+import dev.delivercraft.io.StubLineReader;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class QuotesPrinterTest {
 
     @Test
     void displayQuote_GivenNoQuote_ShouldAskToEnterTheQuote() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        QuotesPrinter quotesPrinter = new QuotesPrinter(new ByteArrayInputStream(new byte[0]),
-                new PrintStream(outputStream));
+        LineWriter lineWriter = new CapturingLineWriter();
+        QuotesPrinter quotesPrinter = new QuotesPrinter(new StubLineReader(), lineWriter);
 
         quotesPrinter.displayQuote();
 
-        assertThat(outputStream).hasToString("Please enter the quote!" + System.lineSeparator());
+        assertThat(lineWriter.toString()).contains("Please enter the quote!" + System.lineSeparator());
     }
 
     @Test
     void displayQuote_GivenQuoteWithoutAuthor_ShouldAskToEnterTheAuthor() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        QuotesPrinter quotesPrinter = new QuotesPrinter(new ByteArrayInputStream("To be or not to be".getBytes()),
-                new PrintStream(outputStream));
+        LineWriter lineWriter = new CapturingLineWriter();
+        QuotesPrinter quotesPrinter = new QuotesPrinter(new StubLineReader("To be or not to be"), lineWriter);
 
         quotesPrinter.displayQuote();
 
-        assertThat(outputStream).hasToString("Please enter the author!" + System.lineSeparator());
+        assertThat(lineWriter.toString()).contains("Please enter the author!" + System.lineSeparator());
     }
 
     @Test
     void displayQuote_GivenQuoteAndAuthor_ShouldPrintQuoteWithAuthor() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        LineWriter lineWriter = new CapturingLineWriter();
         QuotesPrinter quotesPrinter = new QuotesPrinter(
-                new ByteArrayInputStream("To be or not to be\nWilliam Shakespeare".getBytes()),
-                new PrintStream(outputStream));
+                new StubLineReader("To be or not to be", "William Shakespeare"), lineWriter);
 
         quotesPrinter.displayQuote();
 
-        assertThat(outputStream).hasToString(
-                "William Shakespeare says, \"To be or not to be\"" + System.lineSeparator());
+        assertThat(lineWriter.toString())
+                .contains("William Shakespeare says, \"To be or not to be\"" + System.lineSeparator());
     }
+
 }
