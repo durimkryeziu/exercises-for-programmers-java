@@ -1,72 +1,52 @@
 package dev.delivercraft.math.console;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import dev.delivercraft.io.CapturingLineWriter;
+import dev.delivercraft.io.LineReader;
+import dev.delivercraft.io.LineWriter;
+import dev.delivercraft.io.StubLineReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class SimpleMathTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"", " ", "10\n", "\n5"})
+    @NullAndEmptySource
+    @ValueSource(strings = {" "})
     void inputIsRequired(String input) {
-        SimpleMath simpleMath = new SimpleMath(new ByteArrayInputStream(input.getBytes()),
-                new PrintStream(new ByteArrayOutputStream()));
+        LineReader lineReader = () -> input;
+        SimpleMath simpleMath = new SimpleMath(lineReader, new CapturingLineWriter());
 
         assertThatIllegalArgumentException()
                 .isThrownBy(simpleMath::printOutput)
                 .withMessage("Input must not be empty!");
     }
 
-    @Test
-    void firstInputMustBeANumber() {
-        SimpleMath simpleMath = new SimpleMath(new ByteArrayInputStream("abc".getBytes()),
-                new PrintStream(new ByteArrayOutputStream()));
+    @ParameterizedTest
+    @CsvSource({
+            "abc, 5, Please enter a valid number! Input: abc",
+            "-10, 5, Please enter a positive number! Input: -10",
+            "10, asdf, Please enter a valid number! Input: asdf",
+            "20, -5, Please enter a positive number! Input: -5"
+    })
+    void numbersMustBeValidPositiveNumbers(String firstInput, String secondInput, String expectedMessage) {
+        LineReader lineReader = new StubLineReader(firstInput, secondInput);
+        SimpleMath simpleMath = new SimpleMath(lineReader, new CapturingLineWriter());
 
         assertThatIllegalArgumentException()
                 .isThrownBy(simpleMath::printOutput)
-                .withMessage("Please enter a valid number! Input: abc");
-    }
-
-    @Test
-    void firstNumberMustBePositive() {
-        SimpleMath simpleMath = new SimpleMath(new ByteArrayInputStream("-10\n5".getBytes()),
-                new PrintStream(new ByteArrayOutputStream()));
-
-        assertThatIllegalArgumentException()
-                .isThrownBy(simpleMath::printOutput)
-                .withMessage("Please enter a positive number! Input: -10");
-    }
-
-    @Test
-    void secondInputMustBeANumber() {
-        SimpleMath simpleMath = new SimpleMath(new ByteArrayInputStream("10\nasdf".getBytes()),
-                new PrintStream(new ByteArrayOutputStream()));
-
-        assertThatIllegalArgumentException()
-                .isThrownBy(simpleMath::printOutput)
-                .withMessage("Please enter a valid number! Input: asdf");
-    }
-
-    @Test
-    void secondNumberMustBePositive() {
-        SimpleMath simpleMath = new SimpleMath(new ByteArrayInputStream("10\n-5".getBytes()),
-                new PrintStream(new ByteArrayOutputStream()));
-
-        assertThatIllegalArgumentException()
-                .isThrownBy(simpleMath::printOutput)
-                .withMessage("Please enter a positive number! Input: -5");
+                .withMessage(expectedMessage);
     }
 
     @Test
     void secondNumberMustNotBeZero() {
-        SimpleMath simpleMath = new SimpleMath(new ByteArrayInputStream("10\n0".getBytes()),
-                new PrintStream(new ByteArrayOutputStream()));
+        LineReader lineReader = new StubLineReader("10", "0");
+        SimpleMath simpleMath = new SimpleMath(lineReader, new CapturingLineWriter());
 
         assertThatIllegalArgumentException()
                 .isThrownBy(simpleMath::printOutput)
@@ -75,13 +55,13 @@ class SimpleMathTest {
 
     @Test
     void sumDifferenceProductAndQuotientIsPrinted() {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        SimpleMath simpleMath = new SimpleMath(new ByteArrayInputStream("10\n5".getBytes()),
-                new PrintStream(outputStream));
+        LineReader lineReader = new StubLineReader("10", "5");
+        LineWriter lineWriter = new CapturingLineWriter();
+        SimpleMath simpleMath = new SimpleMath(lineReader, lineWriter);
 
         simpleMath.printOutput();
 
-        assertThat(outputStream).hasToString("""
+        assertThat(lineWriter.toString()).containsOnlyOnce("""
                 10 + 5 = 15
                 10 - 5 = 5
                 10 * 5 = 50

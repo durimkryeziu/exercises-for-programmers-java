@@ -7,6 +7,9 @@ dependencies {
     implementation enforcedPlatform(libs.spring.boot.dependencies)
     implementation(libs.spring.boot.starter.webmvc)
 
+    implementation(project(':line-io'))
+    testImplementation(testFixtures(project(':line-io')))
+
     testImplementation(libs.spring.boot.starter.webmvc.test)
     testImplementation(libs.assertj.core)
     testImplementation(libs.junit.jupiter)

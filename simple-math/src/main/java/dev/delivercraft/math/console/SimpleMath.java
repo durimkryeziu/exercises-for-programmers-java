@@ -1,37 +1,34 @@
 package dev.delivercraft.math.console;
 
-import java.io.InputStream;
-import java.io.PrintStream;
+import dev.delivercraft.io.LineReader;
+import dev.delivercraft.io.LineWriter;
+
 import java.util.Objects;
-import java.util.Scanner;
 
 class SimpleMath {
 
-    private final PrintStream printStream;
+    private final LineReader lineReader;
 
-    private final InputStream inputStream;
+    private final LineWriter lineWriter;
 
-    SimpleMath(InputStream inputStream, PrintStream printStream) {
-        Objects.requireNonNull(inputStream, "inputStream must not be null");
-        Objects.requireNonNull(printStream, "printStream must not be null");
-        this.printStream = printStream;
-        this.inputStream = inputStream;
+    SimpleMath(LineReader lineReader, LineWriter lineWriter) {
+        Objects.requireNonNull(lineReader, "lineReader must not be null");
+        Objects.requireNonNull(lineWriter, "lineWriter must not be null");
+        this.lineReader = lineReader;
+        this.lineWriter = lineWriter;
     }
 
     void printOutput() {
-        try (Scanner scanner = new Scanner(this.inputStream)) {
-            String firstInput = promptForInput("What is the first number? ", scanner);
-            PositiveInteger firstNumber = PositiveInteger.of(firstInput);
-            String secondInput = promptForInput("What is the second number? ", scanner);
-            PositiveInteger secondNumber = PositiveInteger.of(secondInput);
-            this.printStream.println(formattedOutput(firstNumber, secondNumber));
-        }
+        String firstInput = promptForInput("What is the first number? ");
+        PositiveInteger firstNumber = PositiveInteger.of(firstInput);
+        String secondInput = promptForInput("What is the second number? ");
+        PositiveInteger secondNumber = PositiveInteger.of(secondInput);
+        this.lineWriter.writeLine(formattedOutput(firstNumber, secondNumber));
     }
 
-    @SuppressWarnings("PMD.SystemPrintln")
-    private String promptForInput(String prompt, Scanner scanner) {
-        System.out.print(prompt);
-        String input = scanner.hasNext() ? scanner.nextLine() : null;
+    private String promptForInput(String prompt) {
+        this.lineWriter.write(prompt);
+        String input = this.lineReader.readLine();
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("Input must not be empty!");
         }
