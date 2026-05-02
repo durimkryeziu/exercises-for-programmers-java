@@ -1,38 +1,27 @@
 package dev.delivercraft.hello;
 
-import java.io.InputStream;
-import java.io.PrintStream;
+import dev.delivercraft.io.LineReader;
+import dev.delivercraft.io.LineWriter;
+
 import java.util.Objects;
-import java.util.Scanner;
 
 final class GreetPrinter {
 
-    private final InputStream inputStream;
+    private final LineReader lineReader;
 
-    private final PrintStream printStream;
+    private final LineWriter lineWriter;
 
-    GreetPrinter(InputStream inputStream, PrintStream printStream) {
-        Objects.requireNonNull(inputStream, "inputStream must not be null");
-        Objects.requireNonNull(printStream, "printStream must not be null");
-        this.inputStream = inputStream;
-        this.printStream = printStream;
+    GreetPrinter(LineReader lineReader, LineWriter lineWriter) {
+        Objects.requireNonNull(lineReader, "lineReader must not be null");
+        Objects.requireNonNull(lineWriter, "lineWriter must not be null");
+        this.lineReader = lineReader;
+        this.lineWriter = lineWriter;
     }
 
     void sayHello() {
-        askForName();
-        String name = readName();
-        this.printStream.printf("Hello, %s, nice to meet you!%n", name);
-    }
-
-    @SuppressWarnings("PMD.SystemPrintln")
-    private void askForName() {
-        System.out.print("What is your name? ");
-    }
-
-    private String readName() {
-        try (Scanner scanner = new Scanner(this.inputStream)) {
-            return scanner.nextLine();
-        }
+        this.lineWriter.write("What is your name? ");
+        String name = this.lineReader.readLine();
+        this.lineWriter.writeLine("Hello, %s, nice to meet you!".formatted(name));
     }
 
 }
