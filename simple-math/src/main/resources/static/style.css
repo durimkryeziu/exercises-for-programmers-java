@@ -1,8 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Helvetica, sans-serif;
     margin: 0;
     background-color: #f0f4f8;
-    height: 100vh;
+    min-height: 100dvh;
+    padding: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,13 +60,24 @@ input[type="number"]:focus {
     border: 1px solid #ddd;
 }
 
+.validation-message {
+    min-height: 20px;
+    margin-bottom: 12px;
+    color: #a61b1b;
+    font-size: 14px;
+}
+
+input[aria-invalid="true"] {
+    border-color: #a61b1b;
+}
+
 #resetButton {
     margin-top: 10px;
     padding: 10px 20px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
-    background-color: #FF6347;
+    background-color: #c2410c;
     color: white;
     cursor: pointer;
     display: block;
@@ -71,5 +87,16 @@ input[type="number"]:focus {
 }
 
 #resetButton:hover {
-    background-color: #ff4b3a;
+    background-color: #9a3412;
+}
+
+#resetButton:focus-visible {
+    outline: 3px solid rgba(194, 65, 12, 0.35);
+    outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 18px;
+    }
 }
