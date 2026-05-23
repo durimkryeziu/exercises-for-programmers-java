@@ -1,0 +1,10 @@
+plugins {
+    id 'dev.delivercraft.common-conventions'
+}
+
+dependencies {
+    implementation(project(':line-io'))
+    testImplementation(testFixtures(project(':line-io')))
+    testImplementation(libs.assertj.core)
+    testImplementation(libs.junit.jupiter)
+}

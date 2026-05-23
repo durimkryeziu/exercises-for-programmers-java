@@ -8,5 +8,6 @@ include(
         'simple-math',
         'retirement-calculator',
         'area-rectangular-room',
-        'pizza-party'
+        'pizza-party',
+        'paint-calculator'
 )

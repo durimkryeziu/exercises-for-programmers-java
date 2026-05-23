@@ -86,7 +86,11 @@
     <rule ref="category/java/codestyle.xml/LocalHomeNamingConvention"/>
     <rule ref="category/java/codestyle.xml/LocalInterfaceSessionNamingConvention"/>
     <rule ref="category/java/codestyle.xml/LocalVariableNamingConventions"/>
-    <rule ref="category/java/codestyle.xml/LongVariable"/>
+    <rule ref="category/java/codestyle.xml/LongVariable">
+        <properties>
+            <property name="minimum" value="25"/>
+        </properties>
+    </rule>
     <rule ref="category/java/codestyle.xml/MethodNamingConventions">
         <properties>
             <property name="junit5TestPattern" value="^[a-z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*$"/>
@@ -166,7 +170,9 @@
     <rule ref="category/java/design.xml/UseObjectForClearerAPI"/>
     <!--  Design  -->
 
-    <rule ref="category/java/errorprone.xml"/>
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="AvoidFieldNameMatchingMethodName"/>
+    </rule>
     <rule ref="category/java/multithreading.xml"/>
     <rule ref="category/java/performance.xml"/>
     <rule ref="category/java/security.xml"/>
