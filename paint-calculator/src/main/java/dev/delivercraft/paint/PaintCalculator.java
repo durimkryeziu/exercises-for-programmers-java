@@ -7,13 +7,21 @@ import java.util.Objects;
 
 final class PaintCalculator {
 
-    private static final String SHAPE_MENU = "Select room shape: 1) Rectangular  2) Round";
+    private static final String SHAPE_MENU = "Select room shape: 1) Rectangular  2) Round  3) L-shaped";
 
     private static final String LENGTH_PROMPT = "What is the length of the room in feet? ";
 
     private static final String WIDTH_PROMPT = "What is the width of the room in feet? ";
 
     private static final String RADIUS_PROMPT = "What is the radius of the room in feet? ";
+
+    private static final String OUTER_LENGTH_PROMPT = "What is the length of the outer rectangle in feet? ";
+
+    private static final String OUTER_WIDTH_PROMPT = "What is the width of the outer rectangle in feet? ";
+
+    private static final String CUTOUT_LENGTH_PROMPT = "What is the length of the cut-out in feet? ";
+
+    private static final String CUTOUT_WIDTH_PROMPT = "What is the width of the cut-out in feet? ";
 
     private final LineReader lineReader;
 
@@ -31,7 +39,8 @@ final class PaintCalculator {
         RoomDimensions dimensions = switch (shapeChoice != null ? shapeChoice.trim() : null) {
             case "1" -> readRectangularDimensions();
             case "2" -> readRoundDimensions();
-            case null, default -> throw new IllegalArgumentException("Please enter 1 or 2");
+            case "3" -> readLShapedDimensions();
+            case null, default -> throw new IllegalArgumentException("Please enter 1, 2 or 3");
         };
 
         PaintEstimate estimate = PaintEstimator.estimate(dimensions);
@@ -49,6 +58,16 @@ final class PaintCalculator {
     private RoundRoom readRoundDimensions() {
         RoomDimension radius = readDimension(RADIUS_PROMPT);
         return new RoundRoom(radius);
+    }
+
+    private LShapedRoom readLShapedDimensions() {
+        RoomDimension outerLength = readDimension(OUTER_LENGTH_PROMPT);
+        RoomDimension outerWidth = readDimension(OUTER_WIDTH_PROMPT);
+        RoomDimension cutoutLength = readDimension(CUTOUT_LENGTH_PROMPT);
+        RoomDimension cutoutWidth = readDimension(CUTOUT_WIDTH_PROMPT);
+        return new LShapedRoom(
+                new RectangularRoom(outerLength, outerWidth),
+                new RectangularRoom(cutoutLength, cutoutWidth));
     }
 
     private RoomDimension readDimension(String prompt) {
