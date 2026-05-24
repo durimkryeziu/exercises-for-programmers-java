@@ -2,6 +2,7 @@ package dev.delivercraft.io;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -22,7 +23,7 @@ public final class OutputStreamLineWriter implements LineWriter {
      */
     public OutputStreamLineWriter(OutputStream outputStream) {
         Objects.requireNonNull(outputStream, "outputStream must not be null");
-        this.printWriter = new PrintWriter(outputStream, true);
+        this.printWriter = new PrintWriter(outputStream, true, StandardCharsets.UTF_8);
     }
 
     /**

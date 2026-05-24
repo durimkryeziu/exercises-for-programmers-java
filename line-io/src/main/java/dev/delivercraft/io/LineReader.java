@@ -3,6 +3,7 @@ package dev.delivercraft.io;
 /**
  * Reads one line of text.
  */
+@FunctionalInterface
 public interface LineReader {
 
     /**

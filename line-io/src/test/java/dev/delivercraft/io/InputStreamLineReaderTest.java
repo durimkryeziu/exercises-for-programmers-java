@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -26,7 +27,7 @@ class InputStreamLineReaderTest {
     @Test
     void readLine_GivenInput_ShouldReturnInputLine() {
         String input = "Hello, World!\n";
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         LineReader lineReader = new InputStreamLineReader(inputStream);
 
         String result = lineReader.readLine();

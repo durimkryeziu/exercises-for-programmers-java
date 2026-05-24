@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -25,7 +26,7 @@ public final class InputStreamLineReader implements LineReader {
      */
     public InputStreamLineReader(InputStream inputStream) {
         Objects.requireNonNull(inputStream, "inputStream must not be null");
-        this.bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        this.bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
     }
 
     /**

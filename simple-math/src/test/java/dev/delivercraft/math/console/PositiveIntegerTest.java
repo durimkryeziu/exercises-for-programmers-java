@@ -1,11 +1,11 @@
 package dev.delivercraft.math.console;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
+
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class PositiveIntegerTest {
 
@@ -32,7 +32,6 @@ class PositiveIntegerTest {
     }
 
     @Test
-    @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     void encapsulatesAPositiveNumber() {
         PositiveInteger positiveInteger = PositiveInteger.of("42");
 
