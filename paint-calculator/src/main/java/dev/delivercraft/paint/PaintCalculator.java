@@ -7,6 +7,14 @@ import java.util.Objects;
 
 final class PaintCalculator {
 
+    private static final String SHAPE_MENU = "Select room shape: 1) Rectangular  2) Round";
+
+    private static final String LENGTH_PROMPT = "What is the length of the room in feet? ";
+
+    private static final String WIDTH_PROMPT = "What is the width of the room in feet? ";
+
+    private static final String RADIUS_PROMPT = "What is the radius of the room in feet? ";
+
     private final LineReader lineReader;
 
     private final LineWriter lineWriter;
@@ -17,17 +25,32 @@ final class PaintCalculator {
     }
 
     void calculatePaint() {
-        RoomDimension length = readDimension("What is the length of the room in feet? ");
-        RoomDimension width = readDimension("What is the width of the room in feet? ");
+        this.lineWriter.writeLine(SHAPE_MENU);
+        String shapeChoice = this.lineReader.readLine();
 
-        PaintEstimate estimate = PaintEstimator.estimate(new RectangularRoom(length, width));
+        RoomDimensions dimensions = switch (shapeChoice.trim()) {
+            case "1" -> readRectangularDimensions();
+            case "2" -> readRoundDimensions();
+            default -> throw new IllegalArgumentException("Please enter 1 or 2");
+        };
+
+        PaintEstimate estimate = PaintEstimator.estimate(dimensions);
 
         this.lineWriter.writeLine("You will need to purchase %s %s of paint to cover %s square feet."
                 .formatted(estimate.gallons(), estimate.gallonWord(), estimate.area()));
     }
 
-    private RoomDimension readDimension(String prompt) {
-        this.lineWriter.write(prompt);
-        return RoomDimension.of(this.lineReader.readLine());
+    private RectangularRoom readRectangularDimensions() {
+        this.lineWriter.write(LENGTH_PROMPT);
+        RoomDimension length = RoomDimension.of(this.lineReader.readLine());
+        this.lineWriter.write(WIDTH_PROMPT);
+        RoomDimension width = RoomDimension.of(this.lineReader.readLine());
+        return new RectangularRoom(length, width);
+    }
+
+    private RoundRoom readRoundDimensions() {
+        this.lineWriter.write(RADIUS_PROMPT);
+        RoomDimension radius = RoomDimension.of(this.lineReader.readLine());
+        return new RoundRoom(radius);
     }
 }
