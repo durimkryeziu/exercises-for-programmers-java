@@ -3,7 +3,7 @@ package dev.delivercraft.paint;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-record RectangularRoom(RoomDimension length, RoomDimension width) implements RoomDimensions {
+public record RectangularRoom(RoomDimension length, RoomDimension width) implements RoomDimensions {
 
     public RectangularRoom(RoomDimension length, RoomDimension width) {
         this.length = Objects.requireNonNull(length, "length must not be null");

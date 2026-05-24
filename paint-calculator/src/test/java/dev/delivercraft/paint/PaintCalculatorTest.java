@@ -40,10 +40,21 @@ class PaintCalculatorTest {
 
     private static final String RADIUS_PROMPT = "What is the radius of the room in feet? ";
 
+    private static final String RECTANGULAR_SHAPE = "1";
+
+    private static final String TEN_FEET = "10";
+
+    private static final String INVALID_LENGTH_OUTPUT =
+            SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT;
+
+    private static final String INVALID_WIDTH_OUTPUT =
+            SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT + WIDTH_PROMPT;
+
     @Test
     void calculatePaint_GivenExampleDimensions_ShouldDisplayGallonsAndArea() {
         LineWriter lineWriter = new CapturingLineWriter();
-        PaintCalculator calculator = new PaintCalculator(new StubLineReader("1", VALID_LENGTH, VALID_WIDTH), lineWriter);
+        PaintCalculator calculator = new PaintCalculator(
+                new StubLineReader(RECTANGULAR_SHAPE, VALID_LENGTH, VALID_WIDTH), lineWriter);
 
         calculator.calculatePaint();
 
@@ -56,7 +67,8 @@ class PaintCalculatorTest {
     @Test
     void calculatePaint_GivenSmallCeiling_ShouldUseSingularGallon() {
         LineWriter lineWriter = new CapturingLineWriter();
-        PaintCalculator calculator = new PaintCalculator(new StubLineReader("1", "10", "10"), lineWriter);
+        PaintCalculator calculator = new PaintCalculator(
+                new StubLineReader(RECTANGULAR_SHAPE, TEN_FEET, TEN_FEET), lineWriter);
 
         calculator.calculatePaint();
 
@@ -69,7 +81,8 @@ class PaintCalculatorTest {
     @Test
     void calculatePaint_GivenFractionalDimensions_ShouldDisplayExactDecimalArea() {
         LineWriter lineWriter = new CapturingLineWriter();
-        PaintCalculator calculator = new PaintCalculator(new StubLineReader("1", "10.5", "10.1"), lineWriter);
+        PaintCalculator calculator = new PaintCalculator(
+                new StubLineReader(RECTANGULAR_SHAPE, "10.5", "10.1"), lineWriter);
 
         calculator.calculatePaint();
 
@@ -82,7 +95,8 @@ class PaintCalculatorTest {
     @Test
     void calculatePaint_GivenAreaJustOverOneGallon_ShouldRoundGallonsUp() {
         LineWriter lineWriter = new CapturingLineWriter();
-        PaintCalculator calculator = new PaintCalculator(new StubLineReader("1", "35.1", "10"), lineWriter);
+        PaintCalculator calculator = new PaintCalculator(
+                new StubLineReader(RECTANGULAR_SHAPE, "35.1", "10"), lineWriter);
 
         calculator.calculatePaint();
 
@@ -94,39 +108,41 @@ class PaintCalculatorTest {
 
     @ParameterizedTest
     @MethodSource("invalidInputFlows")
-    void calculatePaint_GivenInvalidInput_ShouldFailFast(String shape, String length, String width, String expectedOutput) {
+    void calculatePaint_GivenInvalidInput_ShouldFailFast(
+            String shape, String len, String width, String expOut) {
         LineWriter lineWriter = new CapturingLineWriter();
-        PaintCalculator calculator = new PaintCalculator(new StubLineReader(shape, length, width), lineWriter);
+        PaintCalculator calculator = new PaintCalculator(new StubLineReader(shape, len, width), lineWriter);
 
         assertThatIllegalArgumentException()
                 .isThrownBy(calculator::calculatePaint);
 
-        assertThat(lineWriter).hasToString(expectedOutput);
+        assertThat(lineWriter).hasToString(expOut);
     }
 
     private static Stream<Arguments> invalidInputFlows() {
         return Stream.of(
-                Arguments.of("1", EMPTY_INPUT, VALID_WIDTH, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT),
-                Arguments.of("1", null, VALID_WIDTH, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT),
-                Arguments.of("1", NON_NUMERIC_INPUT, VALID_WIDTH, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT),
-                Arguments.of("1", ZERO_INPUT, VALID_WIDTH, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT),
-                Arguments.of("1", NEGATIVE_INPUT, VALID_WIDTH, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT),
-                Arguments.of("1", SCIENTIFIC_INPUT, VALID_WIDTH, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT),
-                Arguments.of("1", SHORT_DECIMAL, VALID_WIDTH, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT),
-                Arguments.of("1", VALID_LENGTH, EMPTY_INPUT, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT + WIDTH_PROMPT),
-                Arguments.of("1", VALID_LENGTH, null, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT + WIDTH_PROMPT),
-                Arguments.of("1", VALID_LENGTH, NON_NUMERIC_INPUT, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT + WIDTH_PROMPT),
-                Arguments.of("1", VALID_LENGTH, ZERO_INPUT, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT + WIDTH_PROMPT),
-                Arguments.of("1", VALID_LENGTH, NEGATIVE_INPUT, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT + WIDTH_PROMPT),
-                Arguments.of("1", VALID_LENGTH, SCIENTIFIC_INPUT, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT + WIDTH_PROMPT),
-                Arguments.of("1", VALID_LENGTH, SHORT_DECIMAL, SHAPE_MENU + System.lineSeparator() + LENGTH_PROMPT + WIDTH_PROMPT));
+                Arguments.of(RECTANGULAR_SHAPE, EMPTY_INPUT, VALID_WIDTH, INVALID_LENGTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, null, VALID_WIDTH, INVALID_LENGTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, NON_NUMERIC_INPUT, VALID_WIDTH, INVALID_LENGTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, ZERO_INPUT, VALID_WIDTH, INVALID_LENGTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, NEGATIVE_INPUT, VALID_WIDTH, INVALID_LENGTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, SCIENTIFIC_INPUT, VALID_WIDTH, INVALID_LENGTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, SHORT_DECIMAL, VALID_WIDTH, INVALID_LENGTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, VALID_LENGTH, EMPTY_INPUT, INVALID_WIDTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, VALID_LENGTH, null, INVALID_WIDTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, VALID_LENGTH, NON_NUMERIC_INPUT, INVALID_WIDTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, VALID_LENGTH, ZERO_INPUT, INVALID_WIDTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, VALID_LENGTH, NEGATIVE_INPUT, INVALID_WIDTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, VALID_LENGTH, SCIENTIFIC_INPUT, INVALID_WIDTH_OUTPUT),
+                Arguments.of(RECTANGULAR_SHAPE, VALID_LENGTH, SHORT_DECIMAL, INVALID_WIDTH_OUTPUT));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"18", " 18 ", "18.0", "0.5"})
     void calculatePaint_GivenPlainDecimalInput_ShouldAcceptInput(String input) {
         LineWriter lineWriter = new CapturingLineWriter();
-        PaintCalculator calculator = new PaintCalculator(new StubLineReader("1", input, "20"), lineWriter);
+        PaintCalculator calculator = new PaintCalculator(
+                new StubLineReader(RECTANGULAR_SHAPE, input, "20"), lineWriter);
 
         calculator.calculatePaint();
 

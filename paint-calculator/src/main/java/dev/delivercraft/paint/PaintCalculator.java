@@ -28,10 +28,10 @@ final class PaintCalculator {
         this.lineWriter.writeLine(SHAPE_MENU);
         String shapeChoice = this.lineReader.readLine();
 
-        RoomDimensions dimensions = switch (shapeChoice.trim()) {
+        RoomDimensions dimensions = switch (shapeChoice != null ? shapeChoice.trim() : null) {
             case "1" -> readRectangularDimensions();
             case "2" -> readRoundDimensions();
-            default -> throw new IllegalArgumentException("Please enter 1 or 2");
+            case null, default -> throw new IllegalArgumentException("Please enter 1 or 2");
         };
 
         PaintEstimate estimate = PaintEstimator.estimate(dimensions);
