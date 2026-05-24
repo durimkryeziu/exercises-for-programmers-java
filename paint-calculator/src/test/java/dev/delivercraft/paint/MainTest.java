@@ -22,7 +22,7 @@ class MainTest {
     void main_GivenValidInput_ShouldPrintPaintEstimate() throws IOException {
         InputStream originalInput = System.in;
         PrintStream originalOutput = System.out;
-        String inputText = "18%n20%n".formatted();
+        String inputText = "1%n18%n20%n".formatted();
         ByteArrayInputStream input = new ByteArrayInputStream(inputText.getBytes(StandardCharsets.UTF_8));
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 

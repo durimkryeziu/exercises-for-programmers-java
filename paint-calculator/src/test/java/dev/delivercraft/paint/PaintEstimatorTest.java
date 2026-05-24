@@ -10,7 +10,7 @@ class PaintEstimatorTest {
 
     @Test
     void estimate_GivenExampleDimensions_ShouldCalculateAreaAndGallons() {
-        RoomDimensions dimensions = new RoomDimensions(
+        RoomDimensions dimensions = new RectangularRoom(
                 RoomDimension.of("18"),
                 RoomDimension.of("20"));
 
@@ -22,7 +22,7 @@ class PaintEstimatorTest {
 
     @Test
     void estimate_GivenAreaJustOverOneGallon_ShouldRoundGallonsUp() {
-        RoomDimensions dimensions = new RoomDimensions(
+        RoomDimensions dimensions = new RectangularRoom(
                 RoomDimension.of("35.1"),
                 RoomDimension.of("10"));
 
