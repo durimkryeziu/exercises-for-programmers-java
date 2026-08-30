@@ -25,18 +25,18 @@ jobs:
       uses: gradle/actions/setup-gradle@v6
 
     - name: Run PMD Analysis
-      run: ./gradlew pmdMain pmdTest
+      run: ./gradlew pmdMain pmdTest --console=plain
       continue-on-error: false # Fail if code quality issues are found
 
     - name: Run Checkstyle Analysis
-      run: ./gradlew checkstyleMain checkstyleTest
+      run: ./gradlew checkstyleMain checkstyleTest --console=plain
       continue-on-error: false # Fail if code style issues are found
 
     - name: Run Unit Tests
-      run: ./gradlew test
+      run: ./gradlew test --console=plain
 
     - name: Build Project
-      run: ./gradlew build
+      run: ./gradlew build --console=plain
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v7
