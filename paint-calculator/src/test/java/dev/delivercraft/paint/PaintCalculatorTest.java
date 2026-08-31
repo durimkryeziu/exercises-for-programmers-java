@@ -36,9 +36,19 @@ class PaintCalculatorTest {
 
     private static final String WIDTH_PROMPT = "What is the width of the room in feet? ";
 
-    private static final String SHAPE_MENU = "Select room shape: 1) Rectangular  2) Round";
+    private static final String SHAPE_MENU = "Select room shape: 1) Rectangular  2) Round  3) L-shaped";
 
     private static final String RADIUS_PROMPT = "What is the radius of the room in feet? ";
+
+    private static final String OUTER_LENGTH_PROMPT = "What is the length of the outer rectangle in feet? ";
+
+    private static final String OUTER_WIDTH_PROMPT = "What is the width of the outer rectangle in feet? ";
+
+    private static final String CUTOUT_LENGTH_PROMPT = "What is the length of the cut-out in feet? ";
+
+    private static final String CUTOUT_WIDTH_PROMPT = "What is the width of the cut-out in feet? ";
+
+    private static final String L_SHAPED_SHAPE = "3";
 
     private static final String RECTANGULAR_SHAPE = "1";
 
@@ -142,7 +152,7 @@ class PaintCalculatorTest {
     void calculatePaint_GivenPlainDecimalInput_ShouldAcceptInput(String input) {
         LineWriter lineWriter = new CapturingLineWriter();
         PaintCalculator calculator = new PaintCalculator(
-                new StubLineReader(RECTANGULAR_SHAPE, input, "20"), lineWriter);
+                new StubLineReader(RECTANGULAR_SHAPE, input, VALID_WIDTH), lineWriter);
 
         calculator.calculatePaint();
 
@@ -162,15 +172,72 @@ class PaintCalculatorTest {
                 + System.lineSeparator());
     }
 
+    @Test
+    void calculatePaint_GivenLShapedRoomSelection_ShouldCalculateCorrectArea() {
+        // outer 20*15 = 300 ; cutout 5*4 = 20 ; area = 280 ; 280/350 -> ceil 1
+        LineWriter lineWriter = new CapturingLineWriter();
+        PaintCalculator calculator = new PaintCalculator(
+                new StubLineReader(L_SHAPED_SHAPE, VALID_WIDTH, "15", "5", "4"), lineWriter);
+
+        calculator.calculatePaint();
+
+        assertThat(lineWriter).hasToString(SHAPE_MENU + System.lineSeparator()
+                + OUTER_LENGTH_PROMPT + OUTER_WIDTH_PROMPT
+                + CUTOUT_LENGTH_PROMPT + CUTOUT_WIDTH_PROMPT
+                + "You will need to purchase 1 gallon of paint to cover 280 square feet."
+                + System.lineSeparator());
+    }
+
+    @Test
+    void calculatePaint_GivenLShapedRoomWithInvalidOuterLength_ShouldFailFastBeforePromptingWidth() {
+        LineWriter lineWriter = new CapturingLineWriter();
+        PaintCalculator calculator = new PaintCalculator(
+                new StubLineReader(L_SHAPED_SHAPE, NON_NUMERIC_INPUT), lineWriter);
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(calculator::calculatePaint);
+
+        assertThat(lineWriter).hasToString(SHAPE_MENU + System.lineSeparator() + OUTER_LENGTH_PROMPT);
+    }
+
+    @Test
+    void calculatePaint_GivenLShapedRoomWithInvalidCutoutWidth_ShouldFailFastAfterAllPriorPrompts() {
+        LineWriter lineWriter = new CapturingLineWriter();
+        PaintCalculator calculator = new PaintCalculator(
+                new StubLineReader(L_SHAPED_SHAPE, VALID_WIDTH, "15", "5", NEGATIVE_INPUT), lineWriter);
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(calculator::calculatePaint);
+
+        assertThat(lineWriter).hasToString(SHAPE_MENU + System.lineSeparator()
+                + OUTER_LENGTH_PROMPT + OUTER_WIDTH_PROMPT
+                + CUTOUT_LENGTH_PROMPT + CUTOUT_WIDTH_PROMPT);
+    }
+
+    @Test
+    void calculatePaint_GivenCutoutNotSmallerThanOuter_ShouldThrowWithDescriptiveMessage() {
+        LineWriter lineWriter = new CapturingLineWriter();
+        PaintCalculator calculator = new PaintCalculator(
+                new StubLineReader(L_SHAPED_SHAPE, VALID_WIDTH, "15", VALID_WIDTH, "4"), lineWriter);
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(calculator::calculatePaint)
+                .withMessage("Cut-out must be smaller than the outer rectangle on both length and width.");
+
+        assertThat(lineWriter).hasToString(SHAPE_MENU + System.lineSeparator()
+                + OUTER_LENGTH_PROMPT + OUTER_WIDTH_PROMPT
+                + CUTOUT_LENGTH_PROMPT + CUTOUT_WIDTH_PROMPT);
+    }
+
     @ParameterizedTest
-    @ValueSource(strings = {"3", "0", "abc", "", "  "})
+    @ValueSource(strings = {"4", "0", "abc", "", "  "})
     void calculatePaint_GivenInvalidShapeInput_ShouldThrowIllegalArgumentException(String invalidInput) {
         LineWriter lineWriter = new CapturingLineWriter();
         PaintCalculator calculator = new PaintCalculator(new StubLineReader(invalidInput), lineWriter);
 
         assertThatIllegalArgumentException()
                 .isThrownBy(calculator::calculatePaint)
-                .withMessage("Please enter 1 or 2");
+                .withMessage("Please enter 1, 2 or 3");
         assertThat(lineWriter.toString()).isEqualTo(SHAPE_MENU + System.lineSeparator());
     }
 
@@ -181,7 +248,7 @@ class PaintCalculatorTest {
 
         assertThatIllegalArgumentException()
                 .isThrownBy(calculator::calculatePaint)
-                .withMessage("Please enter 1 or 2");
+                .withMessage("Please enter 1, 2 or 3");
         assertThat(lineWriter.toString()).isEqualTo(SHAPE_MENU + System.lineSeparator());
     }
 }
